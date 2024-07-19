@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Updated successful</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      .card {
+        max-width: 400px;
+        width: 90%;
+        background-color: #0a2558;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+      }
+
+      .message {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="message">Submitted successfully!</div>
+      <div class="button-container">
+        <button class="button" style="margin-left: 150px" id="goBackBtn">
+          Go Back
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("goBackBtn")
+        .addEventListener("click", function () {
+          window.location.href = window.location.href.replace(
+            /\/[^\/]+$/,
+            "/enquiry.php"
+          );
+        });
+
+      document
+        .getElementById("analyticsBtn")
+        .addEventListener("click", function () {
+          window.location.href = window.location.href.replace(
+            /\/[^\/]+$/,
+            "/analytics.html"
+          );
+        });
+    </script>
+  </body>
+</html>

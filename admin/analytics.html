@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics Page</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .chart-container {
+        width: 48%; /* Adjust width as needed */
+        margin-bottom: 20px;
+      }
+
+      .comp {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      #totalRecords {
+        background-color: chocolate;
+        color: white;
+        padding: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .chart-container {
+          width: 100%; /* Full width on smaller screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button
+      style="
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgb(85, 85, 255);
+        color: white;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+      "
+      onclick="goBack()"
+    >
+      Back
+    </button>
+
+    <div
+      style="margin-bottom: 50px; margin-top: 50px; margin-left: 680px"
+      class="comp"
+    >
+      <div style="border-radius: 30px" id="totalRecords"></div>
+    </div>
+    <div class="container">
+      <!-- This will display the total records count -->
+      <div class="chart-container">
+        <canvas id="courseChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="registeredLineChart"></canvas>
+      </div>
+    </div>
+
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("fetch_data.php")
+          .then((response) => response.json())
+          .then((data) => {
+            let coursesData = {}; // Object to store counts of registrations for each course
+            let registeredData = {}; // Object to store registered data
+
+            // Extract students data from response
+            const students = data.students;
+
+            // Calculate counts for courses and registered data
+            students.forEach((student) => {
+              const courses = [
+                student.DeptChoice1UG,
+                student.DeptChoice2UG,
+                student.DeptChoice3UG,
+                student.DeptChoice1PG,
+                student.DeptChoice2PG,
+                student.DeptChoice3PG,
+                student.DeptChoice1LE,
+                student.DeptChoice2LE,
+                student.DeptChoice3LE,
+              ];
+              courses.forEach((course) => {
+                if (course && course !== "None") {
+                  coursesData[course] = (coursesData[course] || 0) + 1;
+                }
+              });
+
+              // Count registered data
+              const registrationDate = new Date(student.RegistrationDate);
+              const monthYear = registrationDate.toLocaleDateString("en-US", {
+                month: "short",
+                year: "numeric",
+              });
+              registeredData[monthYear] = (registeredData[monthYear] || 0) + 1;
+            });
+
+            // Display total records count
+            if (data.total_records !== undefined) {
+              document.getElementById("totalRecords").innerText =
+                "Total Students: " + data.total_records;
+            }
+
+            // Create pie chart for course registrations
+            const courseCtx = document
+              .getElementById("courseChart")
+              .getContext("2d");
+            const courseChart = new Chart(courseCtx, {
+              type: "pie",
+              data: {
+                labels: Object.keys(coursesData),
+                datasets: [
+                  {
+                    label: "Course Registrations",
+                    data: Object.values(coursesData),
+                    backgroundColor: Object.keys(coursesData).map(
+                      (_) =>
+                        "#" +
+                        ((Math.random() * 0xffffff) << 0)
+                          .toString(16)
+                          .padStart(6, "0")
+                    ),
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+              },
+            });
+
+            // Create line chart for registered data
+            const registeredCtx = document
+              .getElementById("registeredLineChart")
+              .getContext("2d");
+            const registeredLineChart = new Chart(registeredCtx, {
+              type: "line",
+              data: {
+                labels: Object.keys(registeredData),
+                datasets: [
+                  {
+                    label: "Registered Students",
+                    data: Object.values(registeredData),
+                    backgroundColor: "rgba(54, 162, 235, 0.5)", // Blue
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  yAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                        stepSize: 100, // Adjust the step size as needed
+                        callback: function (value, index, values) {
+                          if (value === 0) return value; // Return 0 as it is
+                          // Define custom labels
+                          const labels = [
+                            "100",
+                            "200",
+                            "300",
+                            "400",
+                            "500",
+                            "600",
+                            "700",
+                            "800",
+                            "900",
+                            "1000+",
+                          ];
+                          // Return custom label if it exists, otherwise return original value
+                          return labels[index] || value;
+                        },
+                      },
+                    },
+                  ],
+                },
+                plugins: {
+                  legend: {
+                    onClick: null, // Disable clicking effect on legend
+                  },
+                },
+              },
+            });
+
+            // Log data for reference
+            console.log("Course Registrations:", coursesData);
+            console.log("Registered Data:", registeredData);
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Sri Shakthi Institute of Engineering and Technology</title>
+    <style>
+      /* Reset styles and basic setup */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      header {
+        text-align: center;
+        padding: 20px;
+      }
+
+      header img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      main {
+        margin: 20px; /* Adjust spacing */
+        text-align: center; /* Center align text within main */
+      }
+
+      main section {
+        max-width: 600px; /* Adjust max width of content */
+        margin: 0 auto; /* Center content horizontally */
+        padding: 20px;
+        background-color: #f0f0f0; /* Example background color */
+        border-radius: 8px; /* Rounded corners for content */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Example box shadow */
+      }
+
+      @media (max-width: 768px) {
+        main {
+          padding-top: 100px; /* Ensure content is below fixed header */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img
+        src="image.png"
+        alt="Sri Shakthi Institute of Engineering and Technology Logo"
+      />
+    </header>
+
+    <main>
+      <section id="home">
+        <h1 style="font-size: 30px; margin-bottom: 20px">
+          Sri Shakthi Institute of Engineering and Technology
+        </h1>
+        <p>
+          For admission enquiry, please click the below button to fill the
+          admission enquiry form.
+        </p>
+        <a href="enquiry.php">
+          <button
+            style="
+              margin-top: 50px;
+              padding: 10px;
+              border-radius: 10px;
+              background-color: rgb(85, 85, 255);
+              color: white;
+              text-decoration: none;
+              border: none;
+              cursor: pointer;
+            "
+          >
+            Enquiry
+          </button>
+        </a>
+      </section>
+    </main>
+  </body>
+</html>
