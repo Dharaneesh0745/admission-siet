@@ -31,8 +31,6 @@ if(isset($_POST['submit'])){
    $BoardPG = $_POST['BoardPG'];
    $BoardLE = $_POST['BoardLE'];
    $SchoolName10UG = $_POST['SchoolName10UG'];
-   // $SchoolName10PG = $_POST['SchoolName10PG'];
-   // $SchoolName10LE = $_POST['SchoolName10LE'];
    $SchoolName12UG = $_POST['SchoolName12UG'];
    $SchoolName12PG = $_POST['SchoolName12PG'];
    $SchoolName12LE = $_POST['SchoolName12LE'];

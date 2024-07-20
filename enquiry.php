@@ -57,7 +57,6 @@
     <!--Auto fill and Duplicate requisite-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="jquery-ui/jquery-ui.min.js"></script>
-    <script src="script/autofill.js"></script>
     <link rel="stylesheet" href="jquery-ui\jquery-ui.min.css">
     <script src="script/username.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

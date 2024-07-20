@@ -1,13 +1,13 @@
-<!-- <?php
+<?php
 
-// @include 'config.php';
+@include '../config.php';
 
-// $query = $conn->query("SELECT * FROM enquiryform2");
-// $fetched = array();
+$query = $conn->query("SELECT * FROM enquiryform2");
+$fetched = array();
 
-// while($data = $query->fetch_assoc()){
-//     $fetched[] = $data;
-// }
+while($data = $query->fetch_assoc()){
+    $fetched[] = $data;
+}
 
-// echo json_encode($fetched);
-?> -->
+echo json_encode($fetched);
+?>
