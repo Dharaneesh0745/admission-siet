@@ -467,6 +467,38 @@
                                     </div>
                                 </div>
                                 <!-- state -->
+                                <script>
+                                var stateDistricts = {
+                                "TamilNadu": ["Ariyalur","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kanchipuram","Kanyakumari","Karur","Krishnagiri","Madurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Salem","Sivaganga","Thanjavur","Theni","Thoothukudi","Tiruchirappalli","Tirunelveli","Tiruppur","Tiruvallur","Tiruvannamalai","Tiruvarur","Vellore","Viluppuram","Virudhunagar"],
+                                "Kerala": ["Alappuzha","Ernakulam","Idukki","Kannur","Kasaragod","Kollam","Kottayam","Kozhikode","Malappuram","Palakkad","Pathanamthitta","Thiruvananthapuram","Thrissur","Wayanad"],
+                                "Karnataka": ["Bagalkot","Bangalore Rural","Bangalore Urban","Belgaum","Bellary","Bidar","Vijayapura","Chamarajanagar","Chikkaballapur","Chikkamagaluru","Chitradurga","Dakshina Kannada","Davanagere","Dharwad","Gadag","Gulbarga","Hassan","Haveri","Kodagu","Kolar","Koppal","Mandya","Mysore","Raichur","Ramanagara","Shimoga","Tumkur","Udupi","Uttara Kannada","Yadgir"],
+                                "AndraPradesh": ["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Prakasam","Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"]
+                            
+                                };
+                                
+                                $(document).ready(function () 
+                                {
+                                var stateSelect = $("#P_State");
+                                var districtSelect = $("#P_District");
+                                
+                                // Populate state options
+                                $.each(stateDistricts, function (state, districts) {
+                                    stateSelect.append($("<option></option>").attr("value", state).text(state));
+                                });
+                                
+                                // On state change, populate district options
+                                stateSelect.change(function () 
+                                {
+                                    var selectedState = $(this).val();
+                                    var districts = stateDistricts[selectedState];
+                                    districtSelect.empty().append("<option value=''>-- select one --</option>");
+                                    $.each(districts, function (index, district) 
+                                    {
+                                    districtSelect.append($("<option></option>").attr("value", district).text(district));
+                                    });
+                                });
+                                });
+                            </script>
                                 <!-- district -->
                                 <!-- pincode -->
                                 <div class="input-box">
@@ -597,6 +629,38 @@
                                         </select>
                                     </div>
                                 </div>
+                                <script>
+                                    var stateDistricts = {
+                                    "TamilNadu": ["Ariyalur","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kanchipuram","Kanyakumari","Karur","Krishnagiri","Madurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Salem","Sivaganga","Thanjavur","Theni","Thoothukudi","Tiruchirappalli","Tirunelveli","Tiruppur","Tiruvallur","Tiruvannamalai","Tiruvarur","Vellore","Viluppuram","Virudhunagar"],
+                                    "Kerala": ["Alappuzha","Ernakulam","Idukki","Kannur","Kasaragod","Kollam","Kottayam","Kozhikode","Malappuram","Palakkad","Pathanamthitta","Thiruvananthapuram","Thrissur","Wayanad"],
+                                    "Karnataka": ["Bagalkot","Bangalore Rural","Bangalore Urban","Belgaum","Bellary","Bidar","Vijayapura","Chamarajanagar","Chikkaballapur","Chikkamagaluru","Chitradurga","Dakshina Kannada","Davanagere","Dharwad","Gadag","Gulbarga","Hassan","Haveri","Kodagu","Kolar","Koppal","Mandya","Mysore","Raichur","Ramanagara","Shimoga","Tumkur","Udupi","Uttara Kannada","Yadgir"],
+                                    "AndraPradesh": ["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Prakasam","Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"]
+                                
+                                    };
+                                    
+                                    $(document).ready(function () 
+                                    {
+                                    var stateSelect = $("#C_State");
+                                    var districtSelect = $("#C_District");
+                                    
+                                    // Populate state options
+                                    $.each(stateDistricts, function (state, districts) {
+                                        stateSelect.append($("<option></option>").attr("value", state).text(state));
+                                    });
+                                    
+                                    // On state change, populate district options
+                                    stateSelect.change(function () 
+                                    {
+                                        var selectedState = $(this).val();
+                                        var districts = stateDistricts[selectedState];
+                                        districtSelect.empty().append("<option value=''>-- select one --</option>");
+                                        $.each(districts, function (index, district) 
+                                        {
+                                        districtSelect.append($("<option></option>").attr("value", district).text(district));
+                                        });
+                                    });
+                                    });
+                                </script>
                                 <!-- state -->
                                 <!-- district -->
                                 <!-- pincode -->
