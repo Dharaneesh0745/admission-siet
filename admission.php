@@ -85,7 +85,7 @@
                                 General Information
                             </b>
                         </header>
-                        <form action="admission.php" method="post" class="form">
+                        <form action="admission-backend.php" method="post" class="form">
                             <!-- Student name,mobile number,DOB -->
                             <div class="column">
                                 <!-- Student name -->
