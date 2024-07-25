@@ -59,7 +59,7 @@ if(isset($_POST['submit'])){
    if(mysqli_num_rows($result) > 0){
 
     //   $error[] = 'mobile already exist!';
-      echo '<span class="error-msg">'."error!! dumil".'</span>';
+      echo '<span class="error-msg">'."Successfully Registered".'</span>';
 
    }else{
 
