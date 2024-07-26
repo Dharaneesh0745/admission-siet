@@ -1,4 +1,3 @@
-
 <?php
 
 @include 'config.php';
@@ -51,6 +50,51 @@ if(isset($_POST['submit'])){
    $BankName = $_POST['BankName'];
    $BankBranch = $_POST['BankBranch'];
    $City = $_POST['City'];
+   $BoardUG = $_POST['BoardUG'];
+   $BoardPG = $_POST['BoardPG'];
+   $BoardLE = $_POST['BoardLE'];
+   $SchoolName10UG = $_POST['SchoolName10UG'];
+   $SchoolName12UG = $_POST['SchoolName12UG'];
+   $SchoolName12PG = $_POST['SchoolName12PG'];
+   $SchoolName12LE = $_POST['SchoolName12LE'];
+   $TotalMark10UG = $_POST['TotalMark10UG'];
+   $TotalMark10PG = $_POST['TotalMark10PG'];
+   $TotalMark10LE = $_POST['TotalMark10LE'];
+   $TotalMark12UG = $_POST['TotalMark12UG'];
+   $TotalMark12PG = $_POST['TotalMark12PG'];
+   $TotalMark12LE = $_POST['TotalMark12LE'];
+   $MediumOfInstruction10UG = $_POST['MediumOfInstruction10UG'];
+   $MediumOfInstruction10PG = $_POST['MediumOfInstruction10PG'];
+   $MediumOfInstruction10LE = $_POST['MediumOfInstruction10LE'];
+   $MediumOfInstruction12UG = $_POST['MediumOfInstruction12UG'];
+   $MediumOfInstruction12PG = $_POST['MediumOfInstruction12PG'];
+   $MediumOfInstruction12LE = $_POST['MediumOfInstruction12LE'];
+   $Group12UG = $_POST['Group12UG'];
+   $Group12PG = $_POST['Group12PG'];
+   $Group12LE = $_POST['Group12LE'];
+   $NameOfInstitution = $_POST['NameOfInstitution'];
+   $DeptChoice1UG = $_POST['DeptChoice1UG'];
+   $DeptChoice2UG = $_POST['DeptChoice2UG'];
+   $DeptChoice3UG = $_POST['DeptChoice3UG'];
+   $DeptChoice1PG = $_POST['DeptChoice1PG'];
+   $DeptChoice2PG = $_POST['DeptChoice2PG'];
+   $DeptChoice3PG = $_POST['DeptChoice3PG'];
+   $DeptChoice1LE = $_POST['DeptChoice1LE'];
+   $DeptChoice2LE = $_POST['DeptChoice2LE'];
+   $DeptChoice3LE = $_POST['DeptChoice3LE'];
+   $MathsMark = $_POST['MathsMark'];
+   $PhysicsMark = $_POST['PhysicsMark'];
+   $ChemistryMark = $_POST['ChemistryMark'];
+   $Cutoff = $_POST['Cutoff'];
+   $RegisterNo12 = $_POST['RegisterNo12'];
+   $NameOfDiplomaCourse = $_POST['NameOfDiplomaCourse'];
+   $PercentageDiploma = $_POST['PercentageDiploma'];
+   $NameOfTheCollege = $_POST['NameOfTheCollege'];
+   $NameOfUGcourse = $_POST['NameOfUGcourse'];
+   $CGPA = $_POST['CGPA'];
+   $Sport = $_POST['Sport'];
+   $SportName = $_POST['SportName'];
+   $SportLevel = $_POST['SportLevel'];
 
    $select = " SELECT * FROM umis WHERE MobileNumber = '$StudentMobileNo' ";
 
@@ -58,8 +102,7 @@ if(isset($_POST['submit'])){
 
    if(mysqli_num_rows($result) > 0){
 
-    //   $error[] = 'mobile already exist!';
-      echo '<span class="error-msg">'."Successfully Registered".'</span>';
+      echo '<span>'."ONLY ONE REGISTRATION!".'</span>';
 
    }else{
 
@@ -158,7 +201,7 @@ if(isset($_POST['submit'])){
      
         
          mysqli_query($conn, $insert);
-         header('location:login_form.php');
+         header('location:admission.php');
     }
 
 };

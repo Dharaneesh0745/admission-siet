@@ -85,7 +85,7 @@
                                 General Information
                             </b>
                         </header>
-                        <form action="admission-backend.php" method="post" class="form">
+                        <form action="admission-backend.php" method="post" class="form" enctype = "multipart/form-data">
                             <!-- Student name,mobile number,DOB -->
                             <div class="column">
                                 <!-- Student name -->
@@ -130,15 +130,7 @@
                                     <input type="date" id="dob" name="dob" placeholder="Enter birth date"
                                     />
                                 </div>
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Aadhar Number
-                                        </b>
-                                    </label>
-                                    <input type="number" id="AadhaarNumber" name="AadhaarNumber" placeholder="Enter Aadhar number"
-                                    />
-                                </div>
+                                
                             </div>
                             <!-- Email , Emis , Gender -->
                             <div class="column">
@@ -183,6 +175,11 @@
                                         </select>
                                     </div>
                                 </div>
+                                
+                            </div>
+                            <div class="column">
+
+
                                 <div class="input-box">
                                     <label>
                                         <b>
@@ -218,8 +215,8 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="column">
+
+
                                 <!-- Nationality -->
                                 <div class="input-box">
                                     <label>
@@ -268,39 +265,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <!-- community -->
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Community
-                                            <span style="color: red;">
-                                                *
-                                            </span>
-                                        </b>
-                                    </label>
-                                    <div class="select-box">
-                                        <select id="Community" name="Community">
-                                            <option hidden>
-                                                Community
-                                            </option>
-                                            <option>
-                                                OC
-                                            </option>
-                                            <option>
-                                                BC
-                                            </option>
-                                            <option>
-                                                MBC
-                                            </option>
-                                            <option>
-                                                SC
-                                            </option>
-                                            <option>
-                                                ST
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                                 <div class="input-box">
                                     <label>
                                         <b>
@@ -311,6 +276,184 @@
                                     />
                                 </div>
                             </div>
+
+                            <div class="column">
+                                <!-- Aadhar Number Input -->
+                                <div class="input-box">
+                                    <label><b>Aadhar Number</b></label>
+                                    <input type="number" id="AadhaarNumber" name="AadhaarNumber" placeholder="Enter Aadhar number"/>
+                                </div>
+
+                                <!-- Aadhar Card PDF Upload -->
+                                <div class="input-box file-upload">
+                                    <label for="aadharPdf"><b>Aadhar Card (PDF) <span style="color: red;">*</span></b></label>
+                                    <input type="file" name="aadharPdf" id="aadharPdf" accept="application/pdf" required onchange="handleAadharFileSelect()">
+                                    <span id="aadharFileSizeError" style="color: red; display: none;">File size must be less than 5 MB.</span>
+                                </div>
+                                
+                                <div id="aadharFileLink" class="input-box file-upload hidden">
+                                    <div class="column">
+                                        <button type="button" onclick="viewAadharPdf()">View PDF</button>
+                                        <button type="button" name="fileupload" value="Upload">Upload</button>
+                                        <button type="button" class="file-upload" onclick="clearAadharFile()">Clear File</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <!-- Community -->
+                                <div class="input-box">
+                                    <label><b>Community <span style="color: red;">*</span></b></label>
+                                    <div class="select-box">
+                                        <select id="Community" name="Community">
+                                            <option hidden>Community</option>
+                                            <option>OC</option>
+                                            <option>BC</option>
+                                            <option>MBC</option>
+                                            <option>SC</option>
+                                            <option>ST</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Community Certificate PDF Upload -->
+                                <div class="input-box file-upload">
+                                    <label for="communityPdf"><b>Community Certificate (PDF) <span style="color: red;">*</span></b></label>
+                                    <input type="file" name="communityPdf" id="communityPdf" accept="application/pdf" required onchange="handleCommunityFileSelect()">
+                                    <span id="communityFileSizeError" style="color: red; display: none;">File size must be less than 5 MB.</span>
+                                </div>
+                                
+                                <div id="communityFileLink" class="input-box file-upload hidden">
+                                    <div class="column">
+                                        <button type="button" onclick="viewCommunityPdf()">View PDF</button>
+                                        <button type="button" class="file-upload" onclick="clearCommunityFile()">Clear File</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <script>
+                                var aadharFileURL = "";
+                                var communityFileURL = "";
+
+                                function validateForm() {
+                                    var aadharFileInput = document.getElementById("aadharPdf");
+                                    var communityFileInput = document.getElementById("communityPdf");
+                                    var aadharFileSizeError = document.getElementById("aadharFileSizeError");
+                                    var communityFileSizeError = document.getElementById("communityFileSizeError");
+
+                                    // Hide any previous error messages
+                                    aadharFileSizeError.style.display = "none";
+                                    communityFileSizeError.style.display = "none";
+
+                                    // Check if Aadhar file is selected and its size
+                                    if (aadharFileInput.files.length > 0) {
+                                        var aadharFile = aadharFileInput.files[0];
+                                        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+
+                                        if (aadharFile.size > maxSize) {
+                                            aadharFileSizeError.style.display = "block";
+                                            return false; // Prevent form submission
+                                        }
+                                    }
+
+                                    // Check if Community Certificate file is selected and its size
+                                    if (communityFileInput.files.length > 0) {
+                                        var communityFile = communityFileInput.files[0];
+
+                                        if (communityFile.size > maxSize) {
+                                            communityFileSizeError.style.display = "block";
+                                            return false; // Prevent form submission
+                                        }
+                                    }
+
+                                    return true; // Allow form submission
+                                }
+
+                                function handleAadharFileSelect() {
+                                    var fileInput = document.getElementById("aadharPdf");
+                                    var fileLink = document.getElementById("aadharFileLink");
+
+                                    // Check if file is selected
+                                    if (fileInput.files.length > 0) {
+                                        var file = fileInput.files[0];
+
+                                        // Check if file is a PDF
+                                        if (file.type === "application/pdf") {
+                                            aadharFileURL = URL.createObjectURL(file);
+
+                                            // Show the file link
+                                            fileLink.classList.remove("hidden");
+                                        } else {
+                                            // Hide the file link if file is not a PDF
+                                            fileLink.classList.add("hidden");
+                                            aadharFileURL = "";
+                                        }
+                                    }
+                                }
+
+                                function viewAadharPdf() {
+                                    if (aadharFileURL) {
+                                        window.open(aadharFileURL, '_blank');
+                                    }
+                                }
+
+                                function clearAadharFile() {
+                                    var fileInput = document.getElementById("aadharPdf");
+                                    var fileLink = document.getElementById("aadharFileLink");
+
+                                    // Clear the file input
+                                    fileInput.value = "";
+
+                                    // Hide the file link and reset the file URL
+                                    fileLink.classList.add("hidden");
+                                    aadharFileURL = "";
+                                }
+                            </script>
+
+                            <script>
+                                function handleCommunityFileSelect() {
+                                    var fileInput = document.getElementById("communityPdf");
+                                    var fileLink = document.getElementById("communityFileLink");
+
+                                    // Check if file is selected
+                                    if (fileInput.files.length > 0) {
+                                        var file = fileInput.files[0];
+
+                                        // Check if file is a PDF
+                                        if (file.type === "application/pdf") {
+                                            communityFileURL = URL.createObjectURL(file);
+
+                                            // Show the file link
+                                            fileLink.classList.remove("hidden");
+                                        } else {
+                                            // Hide the file link if file is not a PDF
+                                            fileLink.classList.add("hidden");
+                                            communityFileURL = "";
+                                        }
+                                    }
+                                }
+
+                                function viewCommunityPdf() {
+                                    if (communityFileURL) {
+                                        window.open(communityFileURL, '_blank');
+                                    }
+                                }
+
+                                function clearCommunityFile() {
+                                    var fileInput = document.getElementById("communityPdf");
+                                    var fileLink = document.getElementById("communityFileLink");
+
+                                    // Clear the file input
+                                    fileInput.value = "";
+
+                                    // Hide the file link and reset the file URL
+                                    fileLink.classList.add("hidden");
+                                    communityFileURL = "";
+                                }
+                            </script>
+                            
+                            
                             <div class="column">
                                 <div class="yes-box">
                                     <label for="sportYes">
@@ -392,7 +535,431 @@
                                     </div>
                                 </div>
                             </div>
+
                             <hr style="margin-top: 30px; margin-bottom: 30px;" />
+
+                            <header>
+                                <b>
+                                    Current Academic Information
+                                </b>
+                            </header>
+                            <div class="column" style="margin-top: 10px;">
+                                <div class="input-box">
+                                    <label for=""><b>Academic Year of Joining  <span style="color: red;">*</span></b></label>
+                                    <input type="number" id="" name="" min="1900" max="2100" required>
+                                </div>
+
+                                <!-- Course -->
+                                <div class="input-box">
+                                    <label for="course"><b>Course <span style="color: red;">*</span></b></label>
+                                    <div class="select-box">
+                                        <select name="course" id="course" onchange="updateCourseType()">
+                                            <option value="">-- Select --</option>
+                                            <option value="UG">UG</option>
+                                            <option value="PG">PG</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-box">
+                                    <label for="courseType"><b>Course Type <span style="color: red;">*</span></b></label>
+                                    <div class="select-box">
+                                        <select name="courseType" id="courseType">
+                                            <option value="">-- Select --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-box">
+                                    <label for="branch"><b>Branch / Specialization</b></label>
+                                    <div class="select-box">
+                                        <select name="branch" id="branch" required>
+                                            <option value="">-- Select Branch --</option>
+                                        </select>
+                                    </div>
+                                </div>                        
+                            </div>
+
+
+                            <script>
+                                function updateCourseType() {
+                                    var course = document.getElementById("course").value;
+                                    var courseType = document.getElementById("courseType");
+                                    var branch = document.getElementById("branch");
+
+                                    // Clear previous options
+                                    courseType.innerHTML = '<option value="">-- Select --</option>';
+                                    branch.innerHTML = '<option value="">-- Select Branch --</option>';
+
+                                    if (course === "UG") {
+                                        courseType.innerHTML += '<option value="B.Tech">B.Tech</option>';
+                                        courseType.innerHTML += '<option value="B.E">B.E</option>';
+                                        branch.innerHTML += `
+                                            <option>Computer Science and Engineering</option>
+                                            <option>Cyber Security</option>
+                                            <option>Agriculture Engineering</option>
+                                            <option>Biomedical Engineering</option>
+                                            <option>Civil Engineering</option>
+                                            <option>Electrical and Electronics Engineering</option>
+                                            <option>Information Technology</option>
+                                            <option>Artificial Intelligence and Data Science</option>
+                                            <option>Artificial Intelligence and Machine Learning</option>
+                                            <option>Electronics and Communication Engineering</option>
+                                            <option>Biotechnology</option>
+                                            <option>Food Technology</option>
+                                        `;
+                                    } else if (course === "PG") {
+                                        courseType.innerHTML += '<option value="M.Tech">M.Tech</option>';
+                                        courseType.innerHTML += '<option value="M.E">M.E</option>';
+                                        branch.innerHTML += `
+                                            <option>ME Computer Science and Engineering</option>
+                                            <option>ME CAD CAM Engineering</option>           
+                                            <option>ME Embedded Systems Technology</option>           
+                                            <option>ME Structural Engineering</option>           
+                                            <option>ME VLSI Design</option>
+                                        `;
+                                    }
+                                }
+                            </script>
+
+                            <div class="column">                
+                                <div class="input-box">
+                                    <label><b>Medium Of Instruction</b></label>
+                                    <div class="select-box">
+                                    <select name="" required>
+                                        <option value="">-- Select MediumOfInstruction --</option>
+                                        <option>Tamil</option>
+                                        <option>English</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-box">
+                                    <label><b>Mode Of Study <span style="color: red;">*</span></b></label>
+                                    <div class="select-box">
+                                    <select name="" required>
+                                        <option value="">-- Select Mode --</option>
+                                        <option>Regular</option>
+                                        <option>Hybrid</option>
+                                        <option>Part-Time</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-box">
+                                    <label><b>Date Of Admission <span style="color: red;">*</span></b></label>
+                                    <input type="date" name="" placeholder="Enter Admission date" required />
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="Source"><b>Type Of Admission <span style="color: red;">*</span></b></label>
+                                    <div class="select-box">
+                                        <select name="Source" id="Source" onchange="showFields()" required>
+                                            <option value="">-- Select Type --</option>
+                                            <option value="management">Management</option>
+                                            <option value="counselling">Counselling</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            <div id="counsellingNo" class="input-box hidden">
+                                <div class="column">
+                                    <div class="input-box">
+                                        <label for="counsellingNumber"><b>Counselling / Admission Number <span style="color: red;">*</span></b></label>
+                                        <input type="text" name="counsellingNumber" id="counsellingNumber" placeholder="Enter counselling number">
+                                    </div>
+
+                                    <div class="input-box file-upload">
+                                        <label for="counsellingPdf"><b>Counselling Allotment (PDF) <span style="color: red;">*</span></b></label>
+                                        <input type="file" name="counsellingPdf" id="counsellingPdf" accept="application/pdf" required onchange="handleFileSelect()">
+                                        <span id="fileSizeError" style="color: red; display: none;">File size must be less than 5 MB.</span>
+                                    </div>                                    
+
+                                    <div id="pdfFileLink" class="input-box file-upload hidden">
+                                        <div class="column">                                        
+                                            <button type="button" onclick="viewPdf()">View PDF</button>
+                                            <button type="button" class="file-upload" onclick="clearFile()">Clear File</button>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="yes-box">
+                                    <label for="sportYes">
+                                        <b>
+                                            Has the student joined as lateral entry ?
+                                        </b>
+                                    </label>
+                                    <div class="yes-option">
+                                        <div class="yes">
+                                            <input type="radio" id="LateralEntry" name="LateralEntry" value="yes">
+                                            <label for="sportYes">
+                                                <b>
+                                                    Yes
+                                                </b>
+                                            </label>
+                                        </div>
+                                        <div class="yes">
+                                            <input type="radio" id="LateralEntry" name="LateralEntry" value="no" checked>
+                                            <label for="sportNo">
+                                                <b>
+                                                    No
+                                                </b>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="yes-box">
+                                    <label for="sportYes">
+                                        <b>
+                                            Hosteller ?
+                                        </b>
+                                    </label>
+                                    <div class="yes-option">
+                                        <div class="yes">
+                                            <input type="radio" id="Hostel" name="Hostel" value="yes">
+                                            <label for="sportYes">
+                                                <b>
+                                                    Yes
+                                                </b>
+                                            </label>
+                                        </div>
+                                        <div class="yes">
+                                            <input type="radio" id="Hostel" name="Hostel" value="no" checked>
+                                            <label for="sportNo">
+                                                <b>
+                                                    No
+                                                </b>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <script>
+                                function showFields() {
+                                    var Source = document.getElementById("Source").value;
+                                    var counsellingNo = document.getElementById("counsellingNo");
+
+                                    // Initially hide the counselling number input
+                                    counsellingNo.classList.add("hidden");
+
+                                    // Show the counselling number input if "counselling" is selected
+                                    if (Source === "counselling") {
+                                        counsellingNo.classList.remove("hidden");
+                                    }
+                                }
+
+                                function validateForm() {
+                                    var fileInput = document.getElementById("counsellingPdf");
+                                    var fileSizeError = document.getElementById("fileSizeError");
+
+                                    // Hide any previous error message
+                                    fileSizeError.style.display = "none";
+
+                                    // Check if file is selected and its size
+                                    if (fileInput.files.length > 0) {
+                                        var file = fileInput.files[0];
+                                        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+
+                                        if (file.size > maxSize) {
+                                            fileSizeError.style.display = "block";
+                                            return false; // Prevent form submission
+                                        }
+                                    }
+
+                                    return true; // Allow form submission
+                                }
+
+                                function handleFileSelect() {
+                                    var fileInput = document.getElementById("counsellingPdf");
+                                    var pdfFileLink = document.getElementById("pdfFileLink");
+
+                                    // Check if file is selected
+                                    if (fileInput.files.length > 0) {
+                                        var file = fileInput.files[0];
+
+                                        // Check if file is a PDF
+                                        if (file.type === "application/pdf") {
+                                            fileURL = URL.createObjectURL(file);
+
+                                            // Show the file link
+                                            pdfFileLink.classList.remove("hidden");
+                                        } else {
+                                            // Hide the file link if file is not a PDF
+                                            pdfFileLink.classList.add("hidden");
+                                            fileURL = "";
+                                        }
+                                    }
+                                }
+
+                                function viewPdf() {
+                                    if (fileURL) {
+                                        window.open(fileURL, '_blank');
+                                    }
+                                }
+
+                                function clearFile() {
+                                    var fileInput = document.getElementById("counsellingPdf");
+                                    var pdfFileLink = document.getElementById("pdfFileLink");
+
+                                    // Clear the file input
+                                    fileInput.value = "";
+
+                                    // Hide the file link and reset the file URL
+                                    pdfFileLink.classList.add("hidden");
+                                    fileURL = "";
+                                }
+                            </script>
+
+                            <hr style="margin-top: 50px; margin-bottom: 30px;" />
+
+                            <header>
+                                <b>
+                                    Family Information
+                                </b>
+                            </header>
+                            <div class="column" style="margin-top: 10px;">
+                                <div class="input-box">
+                                    <label>
+                                        <b>
+                                            Father's Name
+                                            <span style="color: red;">
+                                                *
+                                            </span>
+                                        </b>
+                                    </label>
+                                    <input type="text" id="FatherName" name="FatherName" placeholder="Enter full name"
+                                    />
+                                </div>
+                                <div class="input-box">
+                                    <label>
+                                        <b>
+                                            Father's Occupation
+                                        </b>
+                                    </label>
+                                    <div class="select-box">
+                                        <select id="FatherOccupation" name="FatherOccupation">
+                                            <option hidden>
+                                                Occupation
+                                            </option>
+                                            <option>
+                                                Private employee
+                                            </option>
+                                            <option>
+                                                Government employee
+                                            </option>
+                                            <option>
+                                                Self-Employed
+                                            </option>
+                                            <option>
+                                                N/A
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-box">
+                                    <label>
+                                        <b>
+                                            Mother's Name
+                                            <span style="color: red;">
+                                                *
+                                            </span>
+                                        </b>
+                                    </label>
+                                    <input type="text" id="MotherName" name="MotherName" placeholder="Enter full name"
+                                    />
+                                </div>
+                                <div class="input-box">
+                                    <label>
+                                        <b>
+                                            Mother's Occupation
+                                        </b>
+                                    </label>
+                                    <div class="select-box">
+                                        <select id="MotherOccupation" name="MotherOccupation">
+                                            <option hidden>
+                                                Occupation
+                                            </option>
+                                            <option>
+                                                Private employee
+                                            </option>
+                                            <option>
+                                                Government employee
+                                            </option>
+                                            <option>
+                                                Self-Employed
+                                            </option>
+                                            <option>
+                                                N/A
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="input-box">
+                                    <label>
+                                        <b>
+                                            Guardian's Name
+                                        </b>
+                                    </label>
+                                    <input type="text" id="GuardianName" name="GuardianName" placeholder="Enter full name"
+                                    />
+                                </div>
+                                <div class="input-box">
+                                    <label>
+                                        <b>
+                                            Is Orphan Category
+                                        </b>
+                                    </label>
+                                    <div class="select-box">
+                                        <select id="Orphan" name="Orphan">
+                                            <option hidden>
+                                                -- select --
+                                            </option>
+                                            <option>
+                                                yes
+                                            </option>
+                                            <option>
+                                                no
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-box">
+                                    <label>
+                                        <b>
+                                            Annual Family Income
+                                            <span style="color: red;">
+                                                *
+                                            </span>
+                                        </b>
+                                    </label>
+                                    <input type="number" id="AnnualFamilyIncome" name="AnnualFamilyIncome" placeholder="Enter Annual Family Income"
+                                    />
+                                </div>
+                                <div class="input-box">
+                                    <label>
+                                        <b>
+                                            Parent Mobile Number
+                                            <span style="color: red;">
+                                                *
+                                            </span>
+                                        </b>
+                                    </label>
+                                    <input type="number" id="ParentsMobileNo" name="ParentsMobileNo" placeholder="Enter Parent Number"
+                                    />
+                                </div>
+                            </div>
+
+                            <hr style="margin-top: 50px; margin-bottom: 30px;" />
+
                             <header>
                                 <b>
                                     Permanent Address
@@ -400,48 +967,43 @@
                             </header>
                             <div class="column" style="margin-top: 10px;">
                                 <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Country
-                                        </b>
-                                    </label>
+                                    <label><b>Country</b></label>
                                     <input id="P_Country" type="text" name="P_Country" placeholder="Enter Country">
                                 </div>
+
                                 <div class="input-box">
-                                    <label for="State">
-                                        <b>
-                                            State
-                                            <span style="color: red;">
-                                                *
-                                            </span>
-                                        </b>
-                                    </label>
+                                    <label for="State"><b>State <span style="color: red;">*</span></b></label>
                                     <div class="select-box">
                                         <select id="P_State" name="P_State">
-                                            <option value="">
-                                                -- Select State --
-                                            </option>
+                                            <option value="">-- Select State --</option>
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="input-box">
-                                    <label for="District">
-                                        <b>
-                                            District
-                                            <span style="color: red;">
-                                                *
-                                            </span>
-                                        </b>
-                                    </label>
+                                    <label for="District"><b>District <span style="color: red;">*</span></b></label>
                                     <div class="select-box">
                                         <select id="P_District" name="P_District">
-                                            <option value="">
-                                                -- Select One --
-                                            </option>
+                                            <option value="">-- Select One --</option>
                                         </select>
                                     </div>
                                 </div>
+
+                                <!-- <div class="input-box file-upload hidden" id="fileUploadSection">
+                                    <label for="migrationPdf"><b>Migration (PDF) <span style="color: red;">*</span></b></label>
+                                    <input type="file" name="migrationPdf" id="migrationPdf" accept="application/pdf" onchange="handleMigrationFileSelect()">
+                                    <span id="fileSizeError" style="color: red; display: none;">File size must be less than 1 MB.</span>
+                                </div>
+
+                                <div id="migrationFileLink" class="input-box file-upload hidden">
+                                    <div class="column">
+                                        <button type="button" id="viewMigrationPdf" onclick="viewMigrationPdf()">View PDF</button>
+                                        <button type="button" id="clearMigrationFile" onclick="clearMigrationFile()">Clear File</button>
+                                    </div>
+                                </div> -->
                             </div>
+
+
                             <div class="column">
                                 <div class="input-box">
                                     <label>
@@ -467,40 +1029,41 @@
                                     </div>
                                 </div>
                                 <!-- state -->
+
                                 <script>
-                                var stateDistricts = {
-                                "TamilNadu": ["Ariyalur","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kanchipuram","Kanyakumari","Karur","Krishnagiri","Madurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Salem","Sivaganga","Thanjavur","Theni","Thoothukudi","Tiruchirappalli","Tirunelveli","Tiruppur","Tiruvallur","Tiruvannamalai","Tiruvarur","Vellore","Viluppuram","Virudhunagar"],
-                                "Kerala": ["Alappuzha","Ernakulam","Idukki","Kannur","Kasaragod","Kollam","Kottayam","Kozhikode","Malappuram","Palakkad","Pathanamthitta","Thiruvananthapuram","Thrissur","Wayanad"],
-                                "Karnataka": ["Bagalkot","Bangalore Rural","Bangalore Urban","Belgaum","Bellary","Bidar","Vijayapura","Chamarajanagar","Chikkaballapur","Chikkamagaluru","Chitradurga","Dakshina Kannada","Davanagere","Dharwad","Gadag","Gulbarga","Hassan","Haveri","Kodagu","Kolar","Koppal","Mandya","Mysore","Raichur","Ramanagara","Shimoga","Tumkur","Udupi","Uttara Kannada","Yadgir"],
-                                "AndraPradesh": ["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Prakasam","Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"]
-                            
-                                };
+                                    var stateDistricts = {
+                                    "TamilNadu": ["Ariyalur","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kanchipuram","Kanyakumari","Karur","Krishnagiri","Madurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Salem","Sivaganga","Thanjavur","Theni","Thoothukudi","Tiruchirappalli","Tirunelveli","Tiruppur","Tiruvallur","Tiruvannamalai","Tiruvarur","Vellore","Viluppuram","Virudhunagar"],
+                                    "Kerala": ["Alappuzha","Ernakulam","Idukki","Kannur","Kasaragod","Kollam","Kottayam","Kozhikode","Malappuram","Palakkad","Pathanamthitta","Thiruvananthapuram","Thrissur","Wayanad"],
+                                    "Karnataka": ["Bagalkot","Bangalore Rural","Bangalore Urban","Belgaum","Bellary","Bidar","Vijayapura","Chamarajanagar","Chikkaballapur","Chikkamagaluru","Chitradurga","Dakshina Kannada","Davanagere","Dharwad","Gadag","Gulbarga","Hassan","Haveri","Kodagu","Kolar","Koppal","Mandya","Mysore","Raichur","Ramanagara","Shimoga","Tumkur","Udupi","Uttara Kannada","Yadgir"],
+                                    "AndraPradesh": ["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Prakasam","Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"]
                                 
-                                $(document).ready(function () 
-                                {
-                                var stateSelect = $("#P_State");
-                                var districtSelect = $("#P_District");
-                                
-                                // Populate state options
-                                $.each(stateDistricts, function (state, districts) {
-                                    stateSelect.append($("<option></option>").attr("value", state).text(state));
-                                });
-                                
-                                // On state change, populate district options
-                                stateSelect.change(function () 
-                                {
-                                    var selectedState = $(this).val();
-                                    var districts = stateDistricts[selectedState];
-                                    districtSelect.empty().append("<option value=''>-- select one --</option>");
-                                    $.each(districts, function (index, district) 
+                                    };
+                                    
+                                    $(document).ready(function () 
                                     {
-                                    districtSelect.append($("<option></option>").attr("value", district).text(district));
+                                    var stateSelect = $("#P_State");
+                                    var districtSelect = $("#P_District");
+                                    
+                                    // Populate state options
+                                    $.each(stateDistricts, function (state, districts) {
+                                        stateSelect.append($("<option></option>").attr("value", state).text(state));
                                     });
-                                });
-                                });
-                            </script>
-                                <!-- district -->
-                                <!-- pincode -->
+                                    
+                                    // On state change, populate district options
+                                    stateSelect.change(function () 
+                                    {
+                                        var selectedState = $(this).val();
+                                        var districts = stateDistricts[selectedState];
+                                        districtSelect.empty().append("<option value=''>-- select one --</option>");
+                                        $.each(districts, function (index, district) 
+                                        {
+                                        districtSelect.append($("<option></option>").attr("value", district).text(district));
+                                        });
+                                    });
+                                    });
+                                </script>                    
+
+                                
                                 <div class="input-box">
                                     <label>
                                         <b>
@@ -516,8 +1079,7 @@
                                         </b>
                                     </label>
                                     <input id="P_Village" type="text" name="P_Village" placeholder="Enter Your Village">
-                                </div>
-                                <!-- village -->
+                                </div>                            
                             </div>
                             <div class="column">
                                 <div class="input-box">
@@ -555,7 +1117,9 @@
                                     <input id="P_PostalAddress" type="text" name="P_PostalAddress" placeholder="Enter Address">
                                 </div>
                             </div>
+
                             <hr style="margin-top: 50px; margin-bottom: 30px;" />
+
                             <header>
                                 <b>
                                     Communication Address
@@ -661,9 +1225,6 @@
                                     });
                                     });
                                 </script>
-                                <!-- state -->
-                                <!-- district -->
-                                <!-- pincode -->
                                 <div class="input-box">
                                     <label>
                                         <b>
@@ -718,149 +1279,9 @@
                                     <input id="C_PostalAddress" type="text" name="C_PostalAddress" placeholder="Enter Address">
                                 </div>
                             </div>
+
                             <hr style="margin-top: 50px; margin-bottom: 30px;" />
-                            <header>
-                                <b>
-                                    Family Information
-                                </b>
-                            </header>
-                            <div class="column" style="margin-top: 10px;">
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Father's Name
-                                            <span style="color: red;">
-                                                *
-                                            </span>
-                                        </b>
-                                    </label>
-                                    <input type="text" id="FatherName" name="FatherName" placeholder="Enter full name"
-                                    />
-                                </div>
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Father's Occupation
-                                        </b>
-                                    </label>
-                                    <div class="select-box">
-                                        <select id="FatherOccupation" name="FatherOccupation">
-                                            <option hidden>
-                                                Occupation
-                                            </option>
-                                            <option>
-                                                Private employee
-                                            </option>
-                                            <option>
-                                                Government employee
-                                            </option>
-                                            <option>
-                                                Self-Employed
-                                            </option>
-                                            <option>
-                                                N/A
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Mother's Name
-                                            <span style="color: red;">
-                                                *
-                                            </span>
-                                        </b>
-                                    </label>
-                                    <input type="text" id="MotherName" name="MotherName" placeholder="Enter full name"
-                                    />
-                                </div>
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Mother's Occupation
-                                        </b>
-                                    </label>
-                                    <div class="select-box">
-                                        <select id="MotherOccupation" name="MotherOccupation">
-                                            <option hidden>
-                                                Occupation
-                                            </option>
-                                            <option>
-                                                Private employee
-                                            </option>
-                                            <option>
-                                                Government employee
-                                            </option>
-                                            <option>
-                                                Self-Employed
-                                            </option>
-                                            <option>
-                                                N/A
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Guardian's Name
-                                            <span style="color: red;">
-                                                *
-                                            </span>
-                                        </b>
-                                    </label>
-                                    <input type="text" id="GuardianName" name="GuardianName" placeholder="Enter full name"
-                                    />
-                                </div>
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Is Orphan Category
-                                        </b>
-                                    </label>
-                                    <div class="select-box">
-                                        <select id="Orphan" name="Orphan">
-                                            <option hidden>
-                                                -- select --
-                                            </option>
-                                            <option>
-                                                yes
-                                            </option>
-                                            <option>
-                                                no
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Annual Family Income
-                                            <span style="color: red;">
-                                                *
-                                            </span>
-                                        </b>
-                                    </label>
-                                    <input type="number" id="AnnualFamilyIncome" name="AnnualFamilyIncome" placeholder="Enter Annual Family Income"
-                                    />
-                                </div>
-                                <div class="input-box">
-                                    <label>
-                                        <b>
-                                            Parent Mobile Number
-                                            <span style="color: red;">
-                                                *
-                                            </span>
-                                        </b>
-                                    </label>
-                                    <input type="number" id="ParentsMobileNo" name="ParentsMobileNo" placeholder="Enter Parent Number"
-                                    />
-                                </div>
-                            </div>
-                            <hr style="margin-top: 50px; margin-bottom: 30px;" />
+
                             <header>
                                 <b>
                                     Bank Account Details
@@ -906,7 +1327,7 @@
                                 <div class="input-box">
                                     <label>
                                         <b>
-                                            Bank Branch
+                                            Bank Branch                                    
                                             <span style="color: red;">
                                                 *
                                             </span>
@@ -928,46 +1349,503 @@
                                     />
                                 </div>
                             </div>
+
                             <hr style="margin-top: 50px; margin-bottom: 30px;" />
+
                             <header>
                                 <b>
-                                    Current Academic Information
+                                    Educational Details
                                 </b>
                             </header>
+
                             <div class="column" style="margin-top: 10px;">
+                                <!-- Seeking Admission -->
+                                <div class="input-box">
+                                    <label for="educationLevel"><b>Seeking Admission For :</b></label>
+                                    <div class="select-box">
+                                        <select name="SeekingAdmission" id="educationLevel" >
+                                            <option value="">-- Select --</option>
+                                            <option value="UG">B.E/B.TECH First Year</option>
+                                            <option value="LE">B.E/B.TECH Lateral</option>
+                                            <option value="PG">M.E/M.TECH</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- District & state [JavaScript] -->
+                            
+                            <!-- UG -->
+                            <div id="ugFields" style="display: none;">
+                                <br>
+                                <hr>
+                                <br>
+                                
+                                
+
+                                <label><b>10th :<span style="color: red;">*</span></b></label>
+
+                                <!-- Board,schoolname,medium of instruction,10th mark -->
+                                <div class="column">
+
+                                <!-- Board -->
+                                <div class="input-box">
+                                    <label><b>Board </b></label>
+                                    <div class="select-box">
+                                    <select name="BoardUG" required>
+                                        <option value="">-- Select Board --</option>
+                                        <option>State Board</option>
+                                        <option>CBSE</option>
+                                        <option>ICSE</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <!-- schoolname 10th -->
+                                <div class="input-box">
+                                    <label for="schoolName10"><b>School Name(studied in 10th Std) </b></label>
+                                    <input type="text" name="SchoolName10UG" id="schoolName10" placeholder="Enter your school name" required/>
+                                </div>
+
+                                <!-- Medium of instruction 10th -->
+                                <div class="input-box">
+                                    <label><b>Medium Of Instruction</b></label>
+                                    <div class="select-box">
+                                    <select name="MediumOfInstruction10UG" required>
+                                        <option value="">-- Select MediumOfInstruction --</option>
+                                        <option>Tamil</option>
+                                        <option>English</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <!-- TotalMarks in 10th -->
+                                <div class="input-box">
+                                    <label for="tm10"><b>Total Marks(in 10th Std) <span style="color: red;">*</span></b></label>
+                                    <input type="number" name="TotalMark10UG" id="tm10" min="0" max="500"placeholder="Enter total Marks" required />
+                                </div> 
+                                
+                                </div>      
+
+                                <!-- 12th Mark -->
+                                <div class="input-box">
+                                <label><b>12th : <span style="color: red;">*</span></b></label>
+                                </div>
+
+                                <!-- 12th school name , 12th medium of instruction,12th group -->
+                                <div class="column">
+
+                                <!-- 12th school name -->
+                                <div class="input-box">
+                                    <label for="schoolName12"><b>School Name(studied in 12th Std)</b></label>
+                                    <input type="text" name="SchoolName12UG" id="schoolName12" placeholder="Enter your school name" required/>
+                                </div>
+
+                                <!-- 12th Medium of instruction -->
+                                <div class="input-box">
+                                    <label><b>Medium Of Instruction</b></label>
+                                    <div class="select-box">
+                                    <select name="MediumOfInstruction12UG" required>
+                                        <option value="">-- Select MediumOfInstruction --</option>
+                                        <option>Tamil</option>
+                                        <option>English</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <!-- 12th Group -->
+                                <div class="input-box">
+                                    <label><b>12th Group <span style="color: red;">*</span></b></label>
+                                    <div class="select-box">
+                                    <select name="Group12UG" required>
+                                        <option value="">-- Select Group --</option>
+                                        <option>Bio-Maths</option>
+                                        <option>Computer science-Maths</option>
+                                        <option>Vocational</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <!-- Marks in 12th subjects -->
+                                <div class="column"> 
+                                
+                                <!-- Maths Mark -->
+                                <div class="input-box">
+                                    <label for="maths"><b>Mathematics Mark</b></label>
+                                    <input type="number" name="MathsMark" id="maths" min="0" max="100" placeholder="Enter Maths Mark" required>
+                                </div>
+
+                                <!-- Physics Mark -->
+                                <div class="input-box">
+                                    <label for="phy"><b>Physics Mark</b></label>
+                                    <input type="number" name="PhysicsMark" id="phy" min="0" max="100"placeholder="Enter physics Mark" required />
+                                </div>
+
+                                <!-- Chemistry Mark -->
+                                <div class="input-box">
+                                    <label for="che"><b>Chemistry Mark</b></label>
+                                    <input type="number" name="ChemistryMark" id="che" min="0" max="100"placeholder="Enter chemistry Mark" required />
+                                </div>
+
+                                </div>
+
+                                <!-- 12th register No, Total Marks in 12th, Cut Off -->
+                                <div class="column">
+                                
+                                <div class="input-box">
+                                    <label for="registerNo"><b>12th Register Number <span style="color: red;">*</span></b></label>
+                                    <input type="number" id="registerNo" name="RegisterNo12" placeholder="Enter register number" required />
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="tm12"><b>Total Marks(in 12th Std) <span style="color: red;">*</span></b></label>
+                                    <input type="number" id="tm12" name="TotalMark12UG" min="0" max="600"placeholder="Enter total Marks" required />
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="co"><b>Cut Off(in 12th Std) <span style="color: red;">*</span></b></label>
+                                    <input type="number" id="co" name="CutOff" min="0" max="200.0"placeholder="Enter your Cutoff" required />
+                                </div>
+
+                                </div>
+
+                                <!-- Sports -->
+                                <div class="column">
+
+                                <div class="yes-box">
+                                    <label for="sportYes"><b>Are you in sports ?</b></label>
+                                    <div class="yes-option">
+                                    <div class="yes">
+                                        <input type="radio" id="sportYes" name="Sport" value="yes">
+                                        <label for="sportYes"><b>Yes</b></label>
+                                    </div>
+                                    <div class="yes">
+                                        <input type="radio" id="sportNo" name="Sport" value="no" checked>
+                                        <label for="sportNo"><b>No</b></label>
+                                    </div>
+                                    </div>
+                                </div>      
+
+                                <div id="sportsSelection" class="hidden">
+                                    <div class="input-box">
+                                    <label for="sportList"><b>Select Your Sport :</b></label>
+                                    <div class="select-box">
+                                        <select name="SportName" id="sportList" required>
+                                        <option value="none">--Select Sport--</option>
+                                        <option value="football">Football</option>
+                                        <option value="basketball">Basketball</option>
+                                        <option value="tennis">Tennis</option>
+                                        <option value="baseball">Baseball</option>
+                                        <option value="handball">HandBall</option>
+                                        <option value="cricket">Cricket</option>                      
+                                        <option value="hockey">Hockey</option>
+                                        <option value="boxing">Boxing</option>
+                                        <option value="swimming">Swimming</option>                      
+                                        <option value="volleyball">Volleyball</option>
+                                        <option value="table_tennis">Table Tennis</option>
+                                        <option value="badminton">Badminton</option>
+                                        </select>
+                                    </div>
+                                    </div>           
+                                </div>
+                                    
+                                <div id="levelSelection" class="hidden">
+                                    <div class="input-box">
+                                    <label for="levelList"><b>Select level :</b></label>
+                                    <div class="select-box">
+                                        <select name="SportLevel" id="levelList">
+                                        <option value="none">--Select Level--</option>
+                                        <option value="district">District</option>
+                                        <option value="state">State</option>
+                                        <option value="national">National</option>
+                                        <option value="international">International</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                </div>                       
+                                        
+                                </div>
+
+                                <!-- Sports Java Script -->
+                                <script>
+                                const sportYes = document.getElementById('sportYes');
+                                const sportsSelection = document.getElementById('sportsSelection');
+                                const levelSelection = document.getElementById('levelSelection');
+                            
+                                sportYes.addEventListener('change', function() {
+                                    if (sportYes.checked) {
+                                    sportsSelection.classList.remove('hidden');
+                                    } else {
+                                    sportsSelection.classList.add('hidden');
+                                    levelSelection.classList.add('hidden');
+                                    }
+                                });
+                            
+                                const sportList = document.getElementById('sportList');
+                                const levelList = document.getElementById('levelList');
+                            
+                                sportList.addEventListener('change', function() {
+                                    if (sportList.value !== 'none') {
+                                    levelSelection.classList.remove('hidden');
+                                    } else {
+                                    levelSelection.classList.add('hidden');
+                                    }
+                                });
+                                </script> 
+                                <!-- End Sports -->
+
+                            </div>
+
+                            <!-- Lateral -->
+                            <div id="leFields" style="display: none;">
+
+                                <br>
+                                <hr>
+
+                                <div class="input-box">
+                                <label><b>10th : <span style="color: red;">*</span></b></label>
+                                </div>            
+
+                                <div class="column">
+                                
+                                <div class="input-box">
+                                    <label><b>Board </b></label>
+                                    <div class="select-box">
+                                    <select name="BoardLE" required>
+                                        <option value="">-- Select Board --</option>
+                                        <option>State Board</option>
+                                        <option>CBSE</option>
+                                        <option>ICSE</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="schoolName10"><b>School Name(studied in 10th Std) </b></label>
+                                    <input name="SchoolName10" type="text" id="schoolName10" placeholder="Enter your school name" required/>
+                                </div>
+
+                                <div class="input-box">
+                                    <label><b>Medium Of Instruction</b></label>
+                                    <div class="select-box">
+                                    <select name="MediumOfInstruction10LE" required>
+                                        <option value="">-- Select MediumOfInstruction --</option>
+                                        <option>Tamil</option>
+                                        <option>English</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="tm10"><b>Total Marks(in 10th Std) <span style="color: red;">*</span></b></label>
+                                    <input type="number" id="tm10" name="TotalMark10LE" min="0" max="500"placeholder="Enter total Marks" required />
+                                </div>
+
+                                </div>
+
+                                <div class="input-box">
+                                <label><b>12th : </b></label>
+                                </div>
+
+                                <div class="column">
+
+                                <div class="input-box">
+                                    <label for="schoolName12"><b>School Name(studied in 12th Std)</b></label>
+                                    <input name="SchoolName12LE" type="text" id="schoolName12" placeholder="Enter your school name" required/>
+                                </div>
+
+                                <div class="input-box">
+                                    <label><b>Medium Of Instruction</b></label>
+                                    <div class="select-box">
+                                    <select name="MediumOfInstruction12LE" required>
+                                        <option value="">-- Select MediumOfInstruction --</option>
+                                        <option>Tamil</option>
+                                        <option>English</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-box">
+                                    <label><b>12th Group </b></label>
+                                    <div class="select-box">
+                                    <select name="Group12LE" required>
+                                        <option value="">-- Select Group --</option>
+                                        <option>Bio-Maths</option>
+                                        <option>Computer science-Maths</option>
+                                        <option>Vocational</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="tm12"><b>Total Marks(in 12th std) </b></label>
+                                    <input type="number" id="tm12" name="TotalMark12LE" min="0" max="600"placeholder="Enter total Marks" required />
+                                </div>
+
+                                </div>
+
+                                <div class="input-box">
+                                <label><b>Diploma :<span style="color: red;">*</span></b></label>
+                                </div>
+
+                                <!-- Diploma [nameofinstitution,percentage,course name] -->
+                                <div class="column">
+
+                                <div class="input-box">
+                                    <label><b>Name Of the Institution </b></label>
+                                    <input name="NameOfInstitution" type="text" placeholder="Enter your Institute name" required/>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="coursename"><b>Name Of the Diploma Course </b></label>
+                                    <input name="NameOfDiplomaCourse" type="text" id="coursename" placeholder="Enter your Course name" required/>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="dipmark"><b>Percentage Scored in Diploma <span style="color: red;">*</span></b></label>
+                                    <input type="number" id="dipmark" name="PercentageDiploma" min="0" max="100"placeholder="Enter your percentage" required />
+                                </div>
+
+                                </div>
+
+                                <br>
+                                
+
+                            </div>     
+
+                            <!-- Post Graduate -->
+                            <div id="pgFields" style="display: none;">
+
+                                <br>
+                                <hr>
+
+                                <div class="input-box">
+                                <label><b>10th : <span style="color: red;">*</span></b></label>
+                                </div>            
+
+                                <div class="column">
+                                <div class="input-box">
+                                    <label><b>Board </b></label>
+                                    <div class="select-box">
+                                    <select name="BoardPG" required>
+                                        <option value="">-- Select Board --</option>
+                                        <option>State Board</option>
+                                        <option>CBSE</option>
+                                        <option>ICSE</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="schoolName10"><b>School Name(studied in 10th Std) </b></label>
+                                    <input type="text" name="SchoolName10" id="schoolName10" placeholder="Enter your school name" required/>
+                                </div>
+
+                                <div class="input-box">
+                                    <label><b>Medium Of Instruction</b></label>
+                                    <div class="select-box">
+                                    <select name="MediumOfInstruction10PG" required>
+                                        <option value="">-- Select MediumOfInstruction --</option>
+                                        <option>Tamil</option>
+                                        <option>English</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="tm10"><b>Total Marks(in 10th Std) <span style="color: red;">*</span></b></label>
+                                    <input type="number" id="tm10" name="TotalMark10PG" min="0" max="500"placeholder="Enter total Marks" required />
+                                </div>
+
+                                </div>
+
+                                <div class="input-box">
+                                <label><b>12th :<span style="color: red;">*</span> </b></label>
+                                </div>
+
+                                <div class="column">
+                                <div class="input-box">
+                                    <label for="schoolName12"><b>School Name(studied in 12th Std)</b></label>
+                                    <input type="text" name="SchoolName12PG" id="schoolName12" placeholder="Enter your school name" required/>
+                                </div>
+
+                                <div class="input-box">
+                                    <label><b>Medium Of Instruction</b></label>
+                                    <div class="select-box">
+                                    <select name="MediumOfInstruction12PG" required>
+                                        <option value="">-- Select MediumOfInstruction --</option>
+                                        <option>Tamil</option>
+                                        <option>English</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-box">
+                                    <label><b>12th Group </b></label>
+                                    <div class="select-box">
+                                    <select name="Group12PG" required>
+                                        <option value="">-- Select Group --</option>
+                                        <option>Bio-Maths</option>
+                                        <option>Computer science-Maths</option>
+                                        <option>Vocational</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="tm12"><b>Total Marks(in 12th std) </b></label>
+                                    <input type="number" id="tm12" name="TotalMark12PG" min="0" max="600"placeholder="Enter total Marks" required />
+                                </div>
+                                </div>
+
+                                <div class="input-box">
+                                <label><b>Bachelor's Degree : <span style="color: red;">*</span></b></label>
+                                </div>
+
+                                <div class="column">              
+                                <div class="input-box">
+                                    <label for="instituteName"><b>Name Of the College </b></label>
+                                    <input type="text" name="NameOfTheCollege" id="instituteName" placeholder="Enter your Institute name" required/>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="coursename"><b>Name Of UG Course </b></label>
+                                    <input type="text" name="NameOfUGcourse" id="coursename" placeholder="Enter your Course name" required/>
+                                </div>
+
+                                <div class="input-box">
+                                    <label for="cgpa"><b> CGPA or Percentage <span style="color: red;">*</span></b></label>
+                                    <input type="number" id="cgpa" name="CGPA" min="0" max="10"placeholder="Enter your percentage" required />
+                                </div>
+                                </div>                              
+                                
+                            
+                            </div>
+                            
                             <script>
-                                var stateDistricts = {
-                                    "TamilNadu": ["Ariyalur", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kanchipuram", "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Salem", "Sivaganga", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram", "Virudhunagar"],
-                                    "Kerala": ["Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", "Thiruvananthapuram", "Thrissur", "Wayanad"],
-                                    "Karnataka": ["Bagalkot", "Bangalore Rural", "Bangalore Urban", "Belgaum", "Bellary", "Bidar", "Vijayapura", "Chamarajanagar", "Chikkaballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", "Davanagere", "Dharwad", "Gadag", "Gulbarga", "Hassan", "Haveri", "Kodagu", "Kolar", "Koppal", "Mandya", "Mysore", "Raichur", "Ramanagara", "Shimoga", "Tumkur", "Udupi", "Uttara Kannada", "Yadgir"],
-                                    "AndraPradesh": ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Kadapa", "Krishna", "Kurnool", "Prakasam", "Nellore", "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari"]
+                                document.getElementById('educationLevel').addEventListener('change', function() {
+                                var ugFields = document.getElementById('ugFields');
+                                var leFields = document.getElementById('leFields');
+                                var pgFields = document.getElementById('pgFields');
 
-                                };
+                                ugFields.style.display = 'none';
+                                leFields.style.display = 'none';
+                                pgFields.style.display = 'none';
 
-                                $(document).ready(function() {
-                                    var stateSelect = $("#State");
-                                    var districtSelect = $("#District");
+                                var selectedOption = this.value;
 
-                                    // Populate state options
-                                    $.each(stateDistricts,
-                                    function(state, districts) {
-                                        stateSelect.append($("<option></option>").attr("value", state).text(state));
-                                    });
-
-                                    // On state change, populate district options
-                                    stateSelect.change(function() {
-                                        var selectedState = $(this).val();
-                                        var districts = stateDistricts[selectedState];
-                                        districtSelect.empty().append("<option value=''>-- select one --</option>");
-                                        $.each(districts,
-                                        function(index, district) {
-                                            districtSelect.append($("<option></option>").attr("value", district).text(district));
-                                        });
-                                    });
+                                if (selectedOption === 'UG') {
+                                    ugFields.style.display = 'block';
+                                    // Add logic for UG fields here
+                                } else if (selectedOption === 'LE') {
+                                    leFields.style.display = 'block';
+                                    // Add logic for LE fields here
+                                } else if (selectedOption === 'PG') {
+                                    pgFields.style.display = 'block';
+                                    // Add logic for PG fields here
+                                }
                                 });
                             </script>
+                        
                             <button type="submit" name="submit" class="form-btn">
                                 Submit
                             </button>

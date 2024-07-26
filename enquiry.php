@@ -34,13 +34,6 @@
 
 </body>
 </html> -->
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -104,15 +97,6 @@
       <section class="container">
         <header><b>Enquiry Form</b></header>
         <form action="enquiry-backend.php" method="post" class="form">
-
-        <?php
-          // if(isset($error)){
-          //   foreach($error as $error){
-          //       echo '<span class="error-msg">'.$error.'</span>';
-          //   };
-          // };
-        ?>
-
           <!-- Student name,mobile number,DOB -->
           <div class="column">
 
@@ -542,11 +526,11 @@
                 <label for="sportYes"><b>Are you in sports ?</b></label>
                 <div class="yes-option">
                   <div class="yes">
-                    <input type="radio" id="Sport" name="Sport" value="yes">
+                    <input type="radio" id="sportYes" name="Sport" value="yes">
                     <label for="sportYes"><b>Yes</b></label>
                   </div>
                   <div class="yes">
-                    <input type="radio" id="Sport" name="Sport" value="no" checked>
+                    <input type="radio" id="sportNo" name="Sport" value="no" checked>
                     <label for="sportNo"><b>No</b></label>
                   </div>
                 </div>
@@ -554,9 +538,9 @@
 
               <div id="sportsSelection" class="hidden">
                 <div class="input-box">
-                  <label for="sportList"><b>Select Your Sport :</b></label>
+                  <label for="SportName"><b>Select Your Sport :</b></label>
                   <div class="select-box">
-                    <select name="SportName" id="SportName" >
+                    <select name="SportName" name = "SportName" id="sportList" required>
                       <option value="none">--Select Sport--</option>
                       <option value="football">Football</option>
                       <option value="basketball">Basketball</option>
@@ -577,9 +561,9 @@
                 
               <div id="levelSelection" class="hidden">
                 <div class="input-box">
-                  <label for="levelList"><b>Select level :</b></label>
+                  <label for="Sportlevel"><b>Select level :</b></label>
                   <div class="select-box">
-                    <select name="SportLevel" id="SportLevel">
+                    <select name="SportLevel" id="levelList">
                       <option value="none">--Select Level--</option>
                       <option value="district">District</option>
                       <option value="state">State</option>
@@ -600,7 +584,7 @@
               <div class="input-box">
                 <label for="ugchoice1"><b>Choice 1 <span style="color: red;">*</span></b></label>
                 <div id="ugchoice1" class="select-box">
-                  <select id="DeptChoice1UG" name="DeptChoice1UG" >
+                  <select id="DeptChoice1UG" name="DeptChoice1UG" required>
                     <option value="">-- Select Department --</option>
                     <option>BE Mechanical Engineering</option>
                     <option>BE Computer Science and Engineering</option>
@@ -680,8 +664,8 @@
                 }
               });
           
-              const sportList = document.getElementById('SportName');
-              const levelList = document.getElementById('SportLevel');
+              const sportList = document.getElementById('sportList');
+              const levelList = document.getElementById('levelList');
           
               sportList.addEventListener('change', function() {
                 if (sportList.value !== 'none') {
@@ -802,7 +786,7 @@
 
               <div class="input-box">
                 <label for="dipmark"><b>Percentage Scored in Diploma <span style="color: red;">*</span></b></label>
-                <input type="number" id="dipmark" name="PercentageDiploma" min="0" max="100"placeholder="Enter your percentage"  />
+                <input type="number" step="any" id="dipmark" name="PercentageDiploma" min="0" max="100"placeholder="Enter your percentage"  />
               </div>
 
             </div>
@@ -836,7 +820,7 @@
               <div class="input-box">
                 <label for="ugchoice2"><b>Choice 2 <span style="color: red;">*</span></b></label>
                 <div class="select-box">
-                  <select name="DeptChoice2LE" id="DeptChoice2LE" >
+                  <select name="DeptChoice2LE" id="DeptChoice2LE">
                     <option value="">-- Select Department --</option>
                     <option>BE Mechanical Engineering</option>
                     <option>BE Computer Science and Engineering</option>
@@ -983,7 +967,7 @@
 
               <div class="input-box">
                 <label for="cgpa"><b> CGPA or Percentage <span style="color: red;">*</span></b></label>
-                <input type="number" id="CGPA" name="CGPA" min="0" max="10"placeholder="Enter your percentage"  />
+                <input type="number" step = "any" id="CGPA" name="CGPA" min="0" max="10"placeholder="Enter your percentage"  />
               </div>
             </div>
 
