@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="jquery-ui\jquery-ui.min.css">
         <script src="script/username.js">
         </script>
+        <script src="script/uplaodfiles.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     
@@ -294,12 +295,11 @@
                                 <div id="aadharFileLink" class="input-box file-upload hidden">
                                     <div class="column">
                                         <button type="button" onclick="viewAadharPdf()">View PDF</button>
-                                        <button type="button" name="fileupload" value="Upload">Upload</button>
+                                        <button type="button" id="uploadButton" name="fileupload" value="Upload">Upload</button>
                                         <button type="button" class="file-upload" onclick="clearAadharFile()">Clear File</button>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="column">
                                 <!-- Community -->
                                 <div class="input-box">

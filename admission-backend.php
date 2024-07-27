@@ -108,8 +108,10 @@ if(isset($_POST['submit'])){
 
       $insert = "INSERT INTO umis (
          EmisId, 
-         StudentName, 
-         dob, 
+         StudName, 
+         StudEmailID, 
+         StudDOB, 
+         Salutation,
          Gender, 
          BloodGroup, 
          Nationality, 
@@ -154,6 +156,7 @@ if(isset($_POST['submit'])){
      ) VALUES (
          '$EmisId',
          '$StudentName',
+         '$StudentEmailId', 
          '$dob',
          '$Gender',
          '$BloodGroup',
