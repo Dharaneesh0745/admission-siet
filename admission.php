@@ -28,8 +28,9 @@
         <script src="script/autofill.js">
         </script>
         <link rel="stylesheet" href="jquery-ui\jquery-ui.min.css">
-        <script src="script/username.js">
+        <script src="script/username-admission.js">
         </script>
+        <script src="script/uploadfiles.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     
@@ -96,14 +97,6 @@
 
                             <hr style="margin-top: 20px; margin-bottom: 20px;" />
 
-
-
-
-
-
-
-
-
                             <!-- Student name,mobile number,DOB -->
                             <div class="column">
                                 <!-- Student name -->
@@ -129,8 +122,8 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <!-- <input type="number" id="StudentMobileNo" maxlength="10" name="StudentMobileNo" placeholder="Enter phone number" required /> -->
-                                    <input id="StudentMobileNo" type="number" name="StudentMobileNo" placeholder="Enter student Number" oninput="validatestudentPhoneNumber(this)" required>
+                                    <!-- <input type="number" id="StudentMobileNo" maxlength="10" name="StudentMobileNo" placeholder="Enter phone number"  /> -->
+                                    <input id="StudentMobileNo" type="number" name="StudentMobileNo" placeholder="Enter student Number" oninput="validatestudentPhoneNumber(this)" >
                                     <span id="studentphoneError" class="hidden" style="color: red;">Phone number must be exactly 10 digits.</span>
                                     <script>
                                     function validatestudentPhoneNumber(input) {
@@ -167,26 +160,26 @@
                                 <div class="input-box file-upload">
                                     <label for="photo">
                                         <b>Passport Size Photo<span style="color: red;">*</span></b>
-                                        <input type="file" id="photoInput" accept="image/*">
+                                        <input type="file" id="ProfilePhoto" name="ProfilePhoto" accept="image/*">
                                         <div id="photofileSizeError" class="hidden" style="color: red;">File size must be less than or equal to 1 MB.</div>
                                     </label>
                                 </div>
                                 <div id="uploadButton" class="input-box file-upload hidden">                                    
                                     <div class="column">
-                                        <button type="button" onclick="uploadPhoto()">Upload Photo</button>
+                                        <button type="button" data-file-input="ProfilePhoto" class="uploadButton" onclick="uploadPhoto()">Upload Photo</button>
                                     </div>
                                 </div>
                                 
 
                                 <script>
-                                    const photoInput = document.getElementById('photoInput');
+                                    const ProfilePhoto = document.getElementById('ProfilePhoto');
                                     const photoBox = document.getElementById('photoBox');
                                     const photoPreview = document.getElementById('photoPreview');
                                     const uploadButton = document.getElementById('uploadButton');
                                     const fileSizeError = document.getElementById('photofileSizeError');
                             
-                                    photoInput.addEventListener('change', function() {
-                                        const file = photoInput.files[0];
+                                    ProfilePhoto.addEventListener('change', function() {
+                                        const file = ProfilePhoto.files[0];
                                         if (file && file.size <= 1048576) { // 1 MB = 1048576 bytes
                                             const reader = new FileReader();
                                             reader.onload = function(e) {
@@ -200,13 +193,13 @@
                                             photoBox.classList.add('hidden');
                                             uploadButton.classList.add('hidden');
                                             fileSizeError.classList.remove('hidden');
-                                            photoInput.value = '';
+                                            ProfilePhoto.value = '';
                                             alert('File must be less than or equal to 1 MB.');
                                         }
                                     });
                             
                                     function uploadPhoto() {
-                                        if (photoInput.files.length > 0 && photoInput.files[0].size <= 1048576) {
+                                        if (ProfilePhoto.files.length > 0 && ProfilePhoto.files[0].size <= 1048576) {
                                             alert('Photo uploaded successfully.');
                                             // Here you can add the actual upload functionality
                                         } else {
@@ -396,14 +389,14 @@
                                     <label for="aadharPdf">
                                         <b>Aadhar Card (PDF)<span style="color: red;">*</span></b>
                                     </label>
-                                    <input type="file" name="aadharPdf" id="aadharPdf" accept="application/pdf" required onchange="handleaadharFileSelect()">
+                                    <input type="file" name="AadhaarDocument" id="aadharPdf" accept="application/pdf"  onchange="handleaadharFileSelect()">
                                     <span id="aadharfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                 </div>
 
                                 <div id="aadharpdfFileLink" class="input-box file-upload hidden">
                                     <div class="column">
                                         <button type="button" id="viewaadharPdfButton" onclick="viewaadharPdf()">View PDF</button>
-                                        <button type="button" id="uploadaadharFileButton" class="hidden" onclick="uploadaadharPdf()">Upload File</button>
+                                        <button type="button" id="uploadaadharFileButton" data-file-input="AadhaarDocument" class="hidden uploadButton" onclick="uploadaadharPdf()">Upload File</button>
                                     </div>
                                 </div>
                             </div>
@@ -477,14 +470,14 @@
                                     <label for="communityPdf">
                                         <b>Community Certificate (PDF) <span style="color: red;">*</span></b>
                                     </label>
-                                    <input type="file" name="communityPdf" id="communityPdf" accept="application/pdf" required onchange="handlecommunityFileSelect()">
+                                    <input type="file" name="CommunityDocument" id="communityPdf" accept="application/pdf"  onchange="handlecommunityFileSelect()">
                                     <span id="communityfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                 </div>
 
                                 <div id="communitypdfFileLink" class="input-box file-upload hidden">
                                     <div class="column">
                                         <button type="button" id="viewcommunityPdfButton" onclick="viewcommunityPdf()">View PDF</button>
-                                        <button type="button" id="uploadcommunityFileButton" class="hidden" onclick="uploadcommunityPdf()">Upload File</button>
+                                        <button type="button" id="uploadcommunityFileButton" data-file-input="CommunityDocument" class="hidden uploadButton" onclick="uploadcommunityPdf()">Upload File</button>
                                     </div>
                                 </div>
                             </div>
@@ -563,7 +556,7 @@
                                     <div class="column">
                                         <div class="input-box file-upload">
                                             <label for="firstGraduateFile"><b>Upload First Graduate PDF:</b></label>
-                                            <input type="file" id="firstGraduateFile" accept="application/pdf">
+                                            <input type="file" name = "FirstGraduateDocument" id="firstGraduateFile" accept="application/pdf">
                                             <div id="fileInfo" class="hidden">
                                                 <p id="fileName"></p>
                                             </div>
@@ -574,7 +567,7 @@
                                         <div class="input-box file-upload">
                                             <div class="column">
                                                 <button id="viewFile">View PDF</button>
-                                                <button id="uploadFile" class="hidden">Upload File</button>  
+                                                <button id="uploadFile" class="hidden uploadButton" data-file-input="FirstGraduateDocument">Upload File</button>  
                                             </div>                                
                                         </div>
                                     </div>
@@ -715,7 +708,7 @@
                             <div class="column" style="margin-top: 10px;">
                                 <div class="input-box">
                                     <label for=""><b>Academic Year of Joining  <span style="color: red;">*</span></b></label>
-                                    <input type="number" id="" name="AcademicYearJoining" min="1900" max="2100" required>
+                                    <input type="number" id="" name="AcademicYearJoining" min="1900" max="2100" >
                                 </div>
 
                                 <!-- Course -->
@@ -740,7 +733,7 @@
                                 <div class="input-box">
                                     <label for="branch"><b>Branch / Specialization</b></label>
                                     <div class="select-box">
-                                        <select name="Branch" id="branch" required>
+                                        <select name="Branch" id="branch" >
                                             <option value="">-- Select Branch --</option>
                                         </select>
                                     </div>
@@ -793,7 +786,7 @@
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="" required>
+                                    <select name="MediumOfInstruction" >
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -804,7 +797,7 @@
                                 <div class="input-box">
                                     <label><b>Mode Of Study <span style="color: red;">*</span></b></label>
                                     <div class="select-box">
-                                    <select name="ModeOfStudy" required>
+                                    <select name="ModeOfStudy" >
                                         <option value="">-- Select Mode --</option>
                                         <option>Regular</option>
                                         <option>Hybrid</option>
@@ -815,13 +808,13 @@
                                 
                                 <div class="input-box">
                                     <label><b>Date Of Admission <span style="color: red;">*</span></b></label>
-                                    <input type="date" name="DateOfAdmission" placeholder="Enter Admission date" required />
+                                    <input type="date" name="DateOfAdmission" placeholder="Enter Admission date"  />
                                 </div>
 
                                 <div class="input-box">
                                     <label for="Source"><b>Type Of Admission <span style="color: red;">*</span></b></label>
                                     <div class="select-box">
-                                        <select name="LateralEntry" id="Source" onchange="showFields()" required>
+                                        <select name="TypeOfAdmission" id="Source" onchange="showFields()" >
                                             <option value="">-- Select Type --</option>
                                             <option value="management">Management</option>
                                             <option value="counselling">Counselling</option>
@@ -839,14 +832,14 @@
 
                                     <div class="input-box file-upload">
                                         <label for="counsellingPdf"><b>Counselling Allotment (PDF) <span style="color: red;">*</span></b></label>
-                                        <input type="file" name="counsellingPdf" id="counsellingPdf" accept="application/pdf" required onchange="handleFileSelect()">
+                                        <input type="file" name="CounsellingDocument" id="counsellingPdf" accept="application/pdf"  onchange="handleFileSelect()">
                                         <span id="counsellingfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>                                    
 
                                     <div id="pdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">                                        
                                             <button type="button" id="viewPdfButton" onclick="viewPdf()">View PDF</button>
-                                            <button type="button" id="uploadFileButton" class="hidden">Upload File</button>
+                                            <button type="button" id="uploadFileButton" class="hidden uploadButton" data-file-input="CounsellingDocument">Upload File</button>
                                         </div>
                                     </div>
                                     
@@ -929,14 +922,14 @@
                                     <label for="tcPdf">
                                         <b>TC (PDF) <span style="color: red;">*</span></b>
                                     </label>
-                                    <input type="file" name="tcPdf" id="tcPdf" accept="application/pdf" required onchange="handletcFileSelect()">
+                                    <input type="file" name="TransferCertificate" id="tcPdf" accept="application/pdf"  onchange="handletcFileSelect()">
                                     <span id="tcfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                 </div>
 
                                 <div id="tcpdfFileLink" class="input-box file-upload hidden">
                                     <div class="column">
                                         <button type="button" id="viewtcPdfButton" onclick="viewtcPdf()">View PDF</button>
-                                        <button type="button" id="uploadtcFileButton" class="hidden" onclick="uploadtcPdf()">Upload File</button>
+                                        <button type="button" id="uploadtcFileButton" class="hidden uploadButton" data-file-input="TransferCertificate" onclick="uploadtcPdf()">Upload File</button>
                                     </div>
                                 </div>
                             </div>
@@ -1083,7 +1076,7 @@
                                     <div class="input-box">
                                         <label><b>Board </b></label>
                                         <div class="select-box">
-                                        <select name="BoardUG" required>
+                                        <select name="BoardUG" >
                                             <option value="">-- Select Board --</option>
                                             <option>State Board</option>
                                             <option>CBSE</option>
@@ -1095,14 +1088,14 @@
                                     <!-- schoolname 10th -->
                                     <div class="input-box">
                                         <label for="schoolName10"><b>School Name(studied in 10th Std) </b></label>
-                                        <input type="text" name="SchoolName10" id="schoolName10" placeholder="Enter your school name" required/>
+                                        <input type="text" name="SchoolName10" id="schoolName10" placeholder="Enter your school name" />
                                     </div>
 
                                     <!-- Medium of instruction 10th -->
                                     <div class="input-box">
                                         <label><b>Medium Of Instruction</b></label>
                                         <div class="select-box">
-                                        <select name="MediumOfInstruction10" required>
+                                        <select name="MediumOfInstruction10" >
                                             <option value="">-- Select MediumOfInstruction --</option>
                                             <option>Tamil</option>
                                             <option>English</option>
@@ -1113,7 +1106,7 @@
                                     <!-- TotalMarks in 10th -->
                                     <div class="input-box">
                                         <label for="tm10"><b>Total Marks(in 10th Std) <span style="color: red;">*</span></b></label>
-                                        <input type="number" name="TotalMark10" id="tm10" min="0" max="500"placeholder="Enter total Marks" required />
+                                        <input type="number" name="TotalMark10" id="tm10" min="0" max="500"placeholder="Enter total Marks"  />
                                     </div> 
                                 
                                 </div>
@@ -1123,14 +1116,14 @@
                                         <label for="ug10thPdf">
                                             <b>10th Marksheet(PDF) <span style="color: red;">*</span></b>
                                         </label>
-                                        <input type="file" name="ug10thPdf" id="ug10thPdf" accept="application/pdf" required onchange="handleug10FileSelect()">
+                                        <input type="file" name="UGTotalMark10Document" id="ug10thPdf" accept="application/pdf"  onchange="handleug10FileSelect()">
                                         <span id="ug10thfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>
 
                                     <div id="ug10thpdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">
                                             <button type="button" id="viewug10PdfButton" onclick="viewug10Pdf()">View PDF</button>
-                                            <button type="button" id="uploadug10FileButton" class="hidden" onclick="uploadug10Pdf()">Upload File</button>
+                                            <button type="button" id="uploadug10FileButton" class="hidden uploadButton" data-file-input="UGTotalMark10Document" onclick="uploadug10Pdf()">Upload File</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1194,14 +1187,14 @@
                                 <!-- 12th school name -->
                                 <div class="input-box">
                                     <label for="schoolName12"><b>School Name(studied in 12th Std)</b></label>
-                                    <input type="text" name="SchoolName12" id="schoolName12" placeholder="Enter your school name" required/>
+                                    <input type="text" name="SchoolName12" id="schoolName12" placeholder="Enter your school name" />
                                 </div>
 
                                 <!-- 12th Medium of instruction -->
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction12" required>
+                                    <select name="MediumOfInstruction12" >
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -1213,7 +1206,7 @@
                                 <div class="input-box">
                                     <label><b>12th Group <span style="color: red;">*</span></b></label>
                                     <div class="select-box">
-                                    <select name="Group12" required>
+                                    <select name="Group12" >
                                         <option value="">-- Select Group --</option>
                                         <option>Bio-Maths</option>
                                         <option>Computer science-Maths</option>
@@ -1229,19 +1222,19 @@
                                 <!-- Maths Mark -->
                                 <div class="input-box">
                                     <label for="maths"><b>Mathematics Mark</b></label>
-                                    <input type="number" name="MathsMark" id="maths" min="0" max="100" placeholder="Enter Maths Mark" required>
+                                    <input type="number" name="MathsMark" id="maths" min="0" max="100" placeholder="Enter Maths Mark" >
                                 </div>
 
                                 <!-- Physics Mark -->
                                 <div class="input-box">
                                     <label for="phy"><b>Physics Mark</b></label>
-                                    <input type="number" name="PhysicsMark" id="phy" min="0" max="100"placeholder="Enter physics Mark" required />
+                                    <input type="number" name="PhysicsMark" id="phy" min="0" max="100"placeholder="Enter physics Mark"  />
                                 </div>
 
                                 <!-- Chemistry Mark -->
                                 <div class="input-box">
                                     <label for="che"><b>Chemistry Mark</b></label>
-                                    <input type="number" name="ChemistryMark" id="che" min="0" max="100"placeholder="Enter chemistry Mark" required />
+                                    <input type="number" name="ChemistryMark" id="che" min="0" max="100"placeholder="Enter chemistry Mark"  />
                                 </div>
 
                                 </div>
@@ -1251,17 +1244,17 @@
                                 
                                     <div class="input-box">
                                         <label for="registerNo"><b>12th Register Number <span style="color: red;">*</span></b></label>
-                                        <input type="number" id="registerNo" name="RegisterNo12" placeholder="Enter register number" required />
+                                        <input type="number" id="registerNo" name="RegisterNo12" placeholder="Enter register number"  />
                                     </div>
 
                                     <div class="input-box">
                                         <label for="tm12"><b>Total Marks(in 12th Std) <span style="color: red;">*</span></b></label>
-                                        <input type="number" id="tm12" name="TotalMark12" min="0" max="600"placeholder="Enter total Marks" required />
+                                        <input type="number" id="tm12" name="TotalMark12" min="0" max="600"placeholder="Enter total Marks"  />
                                     </div>
 
                                     <div class="input-box">
                                         <label for="co"><b>Cut Off(in 12th Std) <span style="color: red;">*</span></b></label>
-                                        <input type="number" id="co" name="CutOff" min="0" max="200.0"placeholder="Enter your Cutoff" required />
+                                        <input type="number" id="co" name="CutOff" min="0" max="200.0"placeholder="Enter your Cutoff"  />
                                     </div>
 
                                 </div>
@@ -1271,14 +1264,14 @@
                                         <label for="ug12thPdf">
                                             <b>12th Marksheet(PDF) <span style="color: red;">*</span></b>
                                         </label>
-                                        <input type="file" name="ug12thPdf" id="ug12thPdf" accept="application/pdf" required onchange="handleug12FileSelect()">
+                                        <input type="file" name="UGTotalMark12Document" id="ug12thPdf" accept="application/pdf"  onchange="handleug12FileSelect()">
                                         <span id="ug12thfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>
 
                                     <div id="ug12thpdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">
                                             <button type="button" id="viewug12PdfButton" onclick="viewug12Pdf()">View PDF</button>
-                                            <button type="button" id="uploadug12FileButton" class="hidden" onclick="uploadug12Pdf()">Upload File</button>
+                                            <button type="button" id="uploadug12FileButton" class="hidden uploadButton" data-file-input="UGTotalMark12Document" onclick="uploadug12Pdf()">Upload File</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1351,7 +1344,7 @@
                                         <div class="input-box">
                                             <label for="sportList"><b>Select Your Sport:</b></label>
                                             <div class="select-box">
-                                                <select name="SportName" id="sportList" required>
+                                                <select name="SportName" id="sportList" >
                                                     <option value="none">--Select Sport--</option>
                                                     <option value="football">Football</option>
                                                     <option value="basketball">Basketball</option>
@@ -1440,7 +1433,7 @@
                                 <div class="input-box">
                                     <label><b>Board </b></label>
                                     <div class="select-box">
-                                    <select name="BoardLE" required>
+                                    <select name="BoardLE" >
                                         <option value="">-- Select Board --</option>
                                         <option>State Board</option>
                                         <option>CBSE</option>
@@ -1451,13 +1444,13 @@
 
                                 <div class="input-box">
                                     <label for="schoolName10"><b>School Name(studied in 10th Std) </b></label>
-                                    <input name="SchoolName10" type="text" id="schoolName10" placeholder="Enter your school name" required/>
+                                    <input name="SchoolName10" type="text" id="schoolName10" placeholder="Enter your school name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction10" required>
+                                    <select name="MediumOfInstruction10" >
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -1467,7 +1460,7 @@
 
                                 <div class="input-box">
                                     <label for="tm10"><b>Total Marks(in 10th Std) <span style="color: red;">*</span></b></label>
-                                    <input type="number" id="tm10" name="TotalMark10" min="0" max="500"placeholder="Enter total Marks" required />
+                                    <input type="number" id="tm10" name="TotalMark10" min="0" max="500"placeholder="Enter total Marks"  />
                                 </div>
 
                                 </div>
@@ -1477,14 +1470,14 @@
                                         <label for="lateral10thPdf">
                                             <b>10th Marksheet(PDF) <span style="color: red;">*</span></b>
                                         </label>
-                                        <input type="file" name="lateral10thPdf" id="lateral10thPdf" accept="application/pdf" required onchange="handlelateral10FileSelect()">
+                                        <input type="file" name="LETotalMark10Document" id="lateral10thPdf" accept="application/pdf"  onchange="handlelateral10FileSelect()">
                                         <span id="lateral10thfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>
 
                                     <div id="lateral10thpdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">
                                             <button type="button" id="viewlateral10PdfButton" onclick="viewlateral10Pdf()">View PDF</button>
-                                            <button type="button" id="uploadlateral10FileButton" class="hidden" onclick="uploadlateral10Pdf()">Upload File</button>
+                                            <button type="button" id="uploadlateral10FileButton" class="hidden uploadButton" data-file-input="LETotalMark10Document" onclick="uploadlateral10Pdf()">Upload File</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1545,7 +1538,7 @@
 
                                 <div class="input-box">
                                     <label for="schoolName12"><b>School Name(studied in 12th Std)</b></label>
-                                    <input name="SchoolName12" type="text" id="schoolName12" placeholder="Enter your school name" required/>
+                                    <input name="SchoolName12" type="text" id="schoolName12" placeholder="Enter your school name" />
                                 </div>
 
                                 <div class="input-box">
@@ -1583,14 +1576,14 @@
                                         <label for="lateral12thPdf">
                                             <b>12th Marksheet(PDF) <span style="color: red;">*</span></b>
                                         </label>
-                                        <input type="file" name="lateral12thPdf" id="lateral12thPdf" accept="application/pdf" required onchange="handlelateral12FileSelect()">
+                                        <input type="file" name="LETotalMark12Document" id="lateral12thPdf" accept="application/pdf"  onchange="handlelateral12FileSelect()">
                                         <span id="lateral12thfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>
 
                                     <div id="lateral12thpdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">
                                             <button type="button" id="viewlateral12PdfButton" onclick="viewlateral12Pdf()">View PDF</button>
-                                            <button type="button" id="uploadlateral12FileButton" class="hidden" onclick="uploadlateral12Pdf()">Upload File</button>
+                                            <button type="button" id="uploadlateral12FileButton" class="hidden uploadButton" data-file-input="LETotalMark12Document" onclick="uploadlateral12Pdf()">Upload File</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1601,7 +1594,7 @@
                                         const fileSizeError = document.getElementById('lateral12thfileSizeError');
                                         const pdfFileLink = document.getElementById('lateral12thpdfFileLink');
                                         const uploadButton = document.getElementById('uploadlateral12FileButton');
-                                        
+                                        console.log("OKIES");
                                         if (fileInput.files.length > 0) {
                                             const file = fileInput.files[0];
                                             if (file.size > 1048576) { // 1 MB = 1048576 bytes
@@ -1652,17 +1645,17 @@
 
                                 <div class="input-box">
                                     <label><b>Name Of the Institution </b></label>
-                                    <input name="NameOfDiplomaCollege" type="text" placeholder="Enter your Institute name" required/>
+                                    <input name="NameOfDiplomaCollege" type="text" placeholder="Enter your Institute name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label for="coursename"><b>Name Of the Diploma Course </b></label>
-                                    <input name="NameOfDiplomaCourse" type="text" id="coursename" placeholder="Enter your Course name" required/>
+                                    <input name="NameOfDiplomaCourse" type="text" id="coursename" placeholder="Enter your Course name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label for="dipmark"><b>Percentage Scored in Diploma <span style="color: red;">*</span></b></label>
-                                    <input type="number" id="dipmark" name="PercentageDiploma" min="0" max="100"placeholder="Enter your percentage" required />
+                                    <input type="number" id="dipmark" name="PercentageDiploma" min="0" max="100"placeholder="Enter your percentage"  />
                                 </div>
 
                                 </div>
@@ -1672,14 +1665,14 @@
                                         <label for="diploma12thPdf">
                                             <b>Diploma Certificate(PDF) <span style="color: red;">*</span></b>
                                         </label>
-                                        <input type="file" name="diplomaPdf" id="diplomaPdf" accept="application/pdf" required onchange="handlediplomaFileSelect()">
+                                        <input type="file" name="DiplomaDocument" id="diplomaPdf" accept="application/pdf"  onchange="handlediplomaFileSelect()">
                                         <span id="diplomafileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>
 
                                     <div id="diplomapdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">
                                             <button type="button" id="viewdiplomaPdfButton" onclick="viewdiplomaPdf()">View PDF</button>
-                                            <button type="button" id="uploaddiplomaFileButton" class="hidden" onclick="uploaddiplomaPdf()">Upload File</button>
+                                            <button type="button" id="uploaddiplomaFileButton" class="hidden uploadButton" data-file-input="DiplomaDocument" onclick="uploaddiplomaPdf()">Upload File</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1753,7 +1746,7 @@
                                 <div class="input-box">
                                     <label><b>Board </b></label>
                                     <div class="select-box">
-                                    <select name="Board" required>
+                                    <select name="Board" >
                                         <option value="">-- Select Board --</option>
                                         <option>State Board</option>
                                         <option>CBSE</option>
@@ -1764,13 +1757,13 @@
 
                                 <div class="input-box">
                                     <label for="schoolName10"><b>School Name(studied in 10th Std) </b></label>
-                                    <input type="text" name="SchoolName10" id="schoolName10" placeholder="Enter your school name" required/>
+                                    <input type="text" name="SchoolName10" id="schoolName10" placeholder="Enter your school name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction10" required>
+                                    <select name="MediumOfInstruction10" >
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -1780,7 +1773,7 @@
 
                                 <div class="input-box">
                                     <label for="tm10"><b>Total Marks(in 10th Std) <span style="color: red;">*</span></b></label>
-                                    <input type="number" id="tm10" name="TotalMark10" min="0" max="500"placeholder="Enter total Marks" required />
+                                    <input type="number" id="tm10" name="TotalMark10" min="0" max="500"placeholder="Enter total Marks"  />
                                 </div>
 
                                 </div>
@@ -1790,14 +1783,13 @@
                                         <label for="pg10thPdf">
                                             <b>10th Marksheet(PDF) <span style="color: red;">*</span></b>
                                         </label>
-                                        <input type="file" name="pg10thPdf" id="pg10thPdf" accept="application/pdf" required onchange="handlepg10FileSelect()">
+                                        <input type="file" name="PGTotalMark10Document" id="pg10thPdf" accept="application/pdf"  onchange="handlepg10FileSelect()">
                                         <span id="pg10thfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>
-
                                     <div id="pg10thpdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">
                                             <button type="button" id="viewpg10PdfButton" onclick="viewpg10Pdf()">View PDF</button>
-                                            <button type="button" id="uploadpg10FileButton" class="hidden" onclick="uploadpg10Pdf()">Upload File</button>
+                                            <button type="button" id="uploadpg10FileButton" class="hidden uploadButton" data-file-input="PGTotalMark10Document" onclick="uploadpg10Pdf()">Upload File</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1857,13 +1849,13 @@
                                 <div class="column">
                                 <div class="input-box">
                                     <label for="schoolName12"><b>School Name(studied in 12th Std)</b></label>
-                                    <input type="text" name="SchoolName12" id="schoolName12" placeholder="Enter your school name" required/>
+                                    <input type="text" name="SchoolName12" id="schoolName12" placeholder="Enter your school name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction12" required>
+                                    <select name="MediumOfInstruction12" >
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -1874,7 +1866,7 @@
                                 <div class="input-box">
                                     <label><b>12th Group </b></label>
                                     <div class="select-box">
-                                    <select name="Group12" required>
+                                    <select name="Group12" >
                                         <option value="">-- Select Group --</option>
                                         <option>Bio-Maths</option>
                                         <option>Computer science-Maths</option>
@@ -1885,7 +1877,7 @@
 
                                 <div class="input-box">
                                     <label for="tm12"><b>Total Marks(in 12th std) </b></label>
-                                    <input type="number" id="tm12" name="TotalMark12" min="0" max="600"placeholder="Enter total Marks" required />
+                                    <input type="number" id="tm12" name="TotalMark12" min="0" max="600"placeholder="Enter total Marks"  />
                                 </div>
                                 </div>
 
@@ -1894,14 +1886,14 @@
                                         <label for="pg12thPdf">
                                             <b>12th Marksheet(PDF) <span style="color: red;">*</span></b>
                                         </label>
-                                        <input type="file" name="pg12thPdf" id="pg12thPdf" accept="application/pdf" required onchange="handlepg12FileSelect()">
+                                        <input type="file" name="PGTotalMark12Document" id="pg12thPdf" accept="application/pdf"  onchange="handlepg12FileSelect()">
                                         <span id="pg12thfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>
 
                                     <div id="pg12thpdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">
                                             <button type="button" id="viewpg12PdfButton" onclick="viewpg12Pdf()">View PDF</button>
-                                            <button type="button" id="uploadpg12FileButton" class="hidden" onclick="uploadpg12Pdf()">Upload File</button>
+                                            <button type="button" data-file-input="PGTotalMark12Document" id="uploadpg12FileButton" class="hidden uploadButton" onclick="uploadpg12Pdf()">Upload File</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1912,7 +1904,7 @@
                                         const fileSizeError = document.getElementById('pg12thfileSizeError');
                                         const pdfFileLink = document.getElementById('pg12thpdfFileLink');
                                         const uploadButton = document.getElementById('uploadpg12FileButton');
-                                        
+                                        console.log("OK");
                                         if (fileInput.files.length > 0) {
                                             const file = fileInput.files[0];
                                             if (file.size > 1048576) { // 1 MB = 1048576 bytes
@@ -1961,17 +1953,17 @@
                                 <div class="column">              
                                 <div class="input-box">
                                     <label for="instituteName"><b>Name Of the College </b></label>
-                                    <input type="text" name="NameOfUGCollege" id="instituteName" placeholder="Enter your Institute name" required/>
+                                    <input type="text" name="NameOfUGCollege" id="instituteName" placeholder="Enter your Institute name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label for="coursename"><b>Name Of UG Course </b></label>
-                                    <input type="text" name="NameOfUGCourse" id="coursename" placeholder="Enter your Course name" required/>
+                                    <input type="text" name="NameOfUGCourse" id="coursename" placeholder="Enter your Course name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label for="cgpa"><b> CGPA or Percentage <span style="color: red;">*</span></b></label>
-                                    <input type="number" id="cgpa" name="CGPA" min="0" max="10"placeholder="Enter your percentage" required />
+                                    <input type="number" id="cgpa" name="CGPA" min="0" max="10"placeholder="Enter your percentage"  />
                                 </div>
                                 </div>      
                                 
@@ -1980,14 +1972,14 @@
                                         <label for="degreePdf">
                                             <b>Degree (PDF) <span style="color: red;">*</span></b>
                                         </label>
-                                        <input type="file" name="degreePdf" id="degreePdf" accept="application/pdf" required onchange="handledegreeFileSelect()">
+                                        <input type="file" name="UGDocument" id="degreePdf" accept="application/pdf"  onchange="handledegreeFileSelect()">
                                         <span id="degreefileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>
 
                                     <div id="degreepdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">
                                             <button type="button" id="viewdegreePdfButton" onclick="viewdegreePdf()">View PDF</button>
-                                            <button type="button" id="uploaddegreeFileButton" class="hidden" onclick="uploaddegreePdf()">Upload File</button>
+                                            <button type="button" id="uploaddegreeFileButton" class="hidden uploadButton" data-file-input="UGDocument" onclick="uploaddegreePdf()">Upload File</button>
                                         </div>
                                     </div>
                                 </div>
@@ -2127,7 +2119,7 @@
                                         </b>
                                     </label>
                                     <!-- <input type="number" id="ParentsMobileNo" size="10" name="ParentsMobileNo" placeholder="Enter Parent Number"/> -->
-                                    <input id="ParentsMobileNo" type="number" name="ParentsMobileNumber" placeholder="Enter Parent Number" oninput="validateParentPhoneNumber(this)" required>
+                                    <input id="ParentsMobileNo" type="number" name="ParentsMobileNumber" placeholder="Enter Parent Number" oninput="validateParentPhoneNumber(this)" >
                                     <span id="parentphoneError" class="hidden" style="color: red;">Phone number must be exactly 10 digits.</span>
                                 </div>
 
@@ -2238,14 +2230,14 @@
                                     <label for="incomePdf">
                                         <b>Income Certificate (PDF)<span style="color: red;">*</span></b>
                                     </label>
-                                    <input type="file" name="incomePdf" id="incomePdf" accept="application/pdf" required onchange="handleincomeFileSelect()">
+                                    <input type="file" name="IncomeDocument" id="incomePdf" accept="application/pdf"  onchange="handleincomeFileSelect()">
                                     <span id="incomefileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                 </div>
 
                                 <div id="incomepdfFileLink" class="input-box file-upload hidden">
                                     <div class="column">
                                         <button type="button" id="viewincomePdfButton" onclick="viewincomePdf()">View PDF</button>
-                                        <button type="button" id="uploadincomeFileButton" class="hidden" onclick="uploadincomePdf()">Upload File</button>
+                                        <button type="button" id="uploadincomeFileButton" class="hidden uploadButton" data-file-input="IncomeDocument" onclick="uploadincomePdf()">Upload File</button>
                                     </div>
                                 </div>
                                 
@@ -2345,14 +2337,14 @@
                                         <label for="migrationPdf">
                                             <b>Migration Certificate (PDF) <span style="color: red;">*</span></b>
                                         </label>
-                                        <input type="file" name="migrationPdf" id="migrationPdf" accept="application/pdf" required onchange="handleMigrationFileSelect()">
+                                        <input type="file" name="MigrationDocument" id="migrationPdf" accept="application/pdf"  onchange="handleMigrationFileSelect()">
                                         <span id="migrationfileSizeError" class="hidden" style="color: red;">File size must be less than 1 MB.</span>
                                     </div>
 
                                     <div id="migrationpdfFileLink" class="input-box file-upload hidden">
                                         <div class="column">
                                             <button type="button" id="viewmigrationPdfButton" onclick="viewMigrationPdf()">View PDF</button>
-                                            <button type="button" id="uploadmigrationFileButton" class="hidden" onclick="uploadMigrationPdf()">Upload File</button>
+                                            <button type="button" id="uploadmigrationFileButton" class="hidden uploadButton" data-file-input="MigrationDocument" onclick="uploadMigrationPdf()">Upload File</button>
                                         </div>
                                     </div>
                                 </div>
@@ -2578,8 +2570,8 @@
                                     <div class="select-box">
                                         <select id="C_State" name="C_State" onchange="handleC_StateChange(this)">
                                             <option value="">-- Select State --</option>
-                                            <option value="TAMIL_NADU">TAMIL NADU</option>
-                                            <option value="OTHER_STATES">OTHER STATES</option>
+                                            <option value="TAMIL NADU">TAMIL NADU</option>
+                                            <option value="OTHER STATES">OTHER STATES</option>
                                         </select>
                                     </div>
                                 </div>
@@ -2614,10 +2606,10 @@
                                     const districtBox = document.getElementById('C-district-box');
                                     const otherStatesBox = document.getElementById('C-other-states-box');
                                     
-                                    if (selectedValue === 'TAMIL_NADU') {
+                                    if (selectedValue === 'TAMIL NADU') {
                                         districtBox.classList.remove('hidden'); // Show district input
                                         otherStatesBox.classList.add('hidden'); // Hide other states inputs
-                                    } else if (selectedValue === 'OTHER_STATES') {
+                                    } else if (selectedValue === 'OTHER STATES') {
                                         districtBox.classList.add('hidden'); // Hide district input
                                         otherStatesBox.classList.remove('hidden'); // Show other states inputs
                                     } else {

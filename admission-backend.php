@@ -242,7 +242,7 @@ if(isset($_POST['submit'])){
          C_Taluk, 
          C_Village, 
          C_Block,
-         C_Pincode,, 
+         C_Pincode, 
          C_VillagePanchayat, 
          C_PostalAddress,
           
@@ -343,10 +343,8 @@ if(isset($_POST['submit'])){
        
      )";
      
-     
-        
-         mysqli_query($conn, $insert);
-         header('location:admission.php');
+    mysqli_query($conn, $insert);
+    header('location:admission.php');
     }
 
 };
