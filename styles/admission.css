@@ -560,3 +560,53 @@ nav .profile-details i {
 .hidden {
   display: none;
 }
+
+
+
+
+/* Style for the checkbox container */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Style for the checkbox */
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px;
+  width: 20px; /* Size of the checkbox */
+  height: 20px; /* Size of the checkbox */
+  cursor: pointer;
+}
+
+/* Style for the checkbox label */
+.checkbox-container label {
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* PHOTO CSS */
+.photo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+}
+.photo-box {
+  width: 120px;
+  height: 150px;
+  border: 2px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.photo-box img {
+  width: 90%;
+  height: auto;
+}
+.hidden {
+  display: none;
+}
