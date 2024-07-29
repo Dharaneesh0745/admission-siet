@@ -35,27 +35,76 @@ if(isset($_POST['submit'])){
 
     //Educational Details
     $SeekingAdmissionFor = $_POST['SeekingAdmissionFor'];
-    $SchoolName10 = $_POST['SchoolName10'];
-    $MediumOfInstruction10 = $_POST['MediumOfInstruction10'];
-    $TotalMark10 = $_POST['TotalMark10'];
-    $SchoolName12 = $_POST['SchoolName12'];
-    $MediumOfInstruction12 = $_POST['MediumOfInstruction12'];
-    $Group12 = $_POST['Group12'];
-    $MathsMark = $_POST['MathsMark'];
-    $PhysicsMark = $_POST['PhysicsMark'];
-    $ChemistryMark = $_POST['ChemistryMark'];
-    $RegisterNo12 = $_POST['RegisterNo12'];
-    $TotalMark12 = $_POST['TotalMark12'];
-    $CutOff = $_POST['CutOff'];
-    $NameOfDiplomaCourse = $_POST['NameOfDiplomaCourse'];
-    $NameOfDiplomaCollege = $_POST['NameOfDiplomaCollege'];
-    $PercentageDiploma = $_POST['PercentageDiploma'];
-    $NameOfUGCollege = $_POST['NameOfUGCollege'];
-    $NameOfUGCourse = $_POST['NameOfUGCourse'];
-    $CGPA = $_POST['CGPA'];
-    $Sport = $_POST['Sport'];
-    $SportName = $_POST['SportName'];
-    $SportLevel = $_POST['SportLevel'];
+    if($_POST['UGSchoolName10']){
+       $SchoolName10 = $_POST['UGSchoolName10'];
+    }else if($_POST['LESchoolName10']){
+       $SchoolName10 = $_POST['LESchoolName10'];
+    }else{
+       $SchoolName10 = $_POST['PGSchoolName10'];
+    }
+
+    if($_POST['UGSchoolName12']){
+       $SchoolName12 = $_POST['UGSchoolName12'];
+    }else if($_POST['LESchoolName12']){
+       $SchoolName12 = $_POST['LESchoolName12'];
+    }else{
+       $SchoolName12 = $_POST['PGSchoolName12'];
+    }
+
+    if($_POST['UGMediumOfInstruction10']){
+       $MediumOfInstruction10 = $_POST['UGMediumOfInstruction10'];
+    }else if($_POST['LEMediumOfInstruction10']){
+       $MediumOfInstruction10 = $_POST['LEMediumOfInstruction10'];
+    }else{
+       $MediumOfInstruction10 = $_POST['PGMediumOfInstruction10'];
+    }
+    
+    if($_POST['UGTotalMark10']){
+       $TotalMark10 = $_POST['UGTotalMark10'];
+      }else if($_POST['LETotalMark10']){
+         $TotalMark10 = $_POST['LETotalMark10'];
+      }else{
+         $TotalMark10 = $_POST['PGTotalMark10'];
+      }
+      
+      if($_POST['UGTotalMark12']){
+         $TotalMark12 = $_POST['UGTotalMark12'];
+      }else if($_POST['LETotalMark12']){
+         $TotalMark12 = $_POST['LETotalMark12'];
+      }else{
+         $TotalMark12 = $_POST['PGTotalMark12'];
+      }
+      
+      if($_POST['UGMediumOfInstruction12']){
+         $MediumOfInstruction12 = $_POST['UGMediumOfInstruction12'];
+      }else if($_POST['LEMediumOfInstruction12']){
+         $MediumOfInstruction12 = $_POST['LEMediumOfInstruction12'];
+      }else{
+         $MediumOfInstruction12 = $_POST['PGMediumOfInstruction12'];
+      }
+      
+      if($_POST['Group12UG']){
+         $Group12 = $_POST['Group12UG'];
+      }else if($_POST['Group12LE']){
+         $Group12 = $_POST['Group12LE'];
+      }else{
+         $Group12 = $_POST['Group12PG'];
+      }
+
+      $MathsMark = $_POST['MathsMark'];
+      $PhysicsMark = $_POST['PhysicsMark'];
+      $ChemistryMark = $_POST['ChemistryMark'];
+      $RegisterNo12 = $_POST['RegisterNo12'];
+      $CutOff = $_POST['CutOff'];
+      $NameOfDiplomaCourse = $_POST['NameOfDiplomaCourse'];
+      $NameOfDiplomaCollege = $_POST['NameOfDiplomaCollege'];
+      $PercentageDiploma = $_POST['PercentageDiploma'];
+      $NameOfUGCollege = $_POST['NameOfUGCollege'];
+      $NameOfUGCourse = $_POST['NameOfUGCourse'];
+      $CGPA = $_POST['CGPA'];
+      $Sport = $_POST['Sport'];
+      $SportName = $_POST['SportName'];
+      $SportLevel = $_POST['SportLevel'];
 
     //Family Information
     $FatherName = $_POST['FatherName'];
@@ -109,59 +158,48 @@ if(isset($_POST['submit'])){
    $BankName = $_POST['BankName'];
    $BankBranch = $_POST['BankBranch'];
    $City = $_POST['City'];
-//    $BoardUG = $_POST['BoardUG'];
-//    $BoardPG = $_POST['BoardPG'];
-//    $BoardLE = $_POST['BoardLE'];
-//    $SchoolName10UG = $_POST['SchoolName10UG'];
-//    $SchoolName12UG = $_POST['SchoolName12UG'];
-//    $SchoolName12PG = $_POST['SchoolName12PG'];
-//    $SchoolName12LE = $_POST['SchoolName12LE'];
-//    $TotalMark10UG = $_POST['TotalMark10UG'];
-//    $TotalMark10PG = $_POST['TotalMark10PG'];
-//    $TotalMark10LE = $_POST['TotalMark10LE'];
-//    $TotalMark12UG = $_POST['TotalMark12UG'];
-//    $TotalMark12PG = $_POST['TotalMark12PG'];
-//    $TotalMark12LE = $_POST['TotalMark12LE'];
-//    $MediumOfInstruction10UG = $_POST['MediumOfInstruction10UG'];
-//    $MediumOfInstruction10PG = $_POST['MediumOfInstruction10PG'];
-//    $MediumOfInstruction10LE = $_POST['MediumOfInstruction10LE'];
-//    $MediumOfInstruction12UG = $_POST['MediumOfInstruction12UG'];
-//    $MediumOfInstruction12PG = $_POST['MediumOfInstruction12PG'];
-//    $MediumOfInstruction12LE = $_POST['MediumOfInstruction12LE'];
-//    $Group12UG = $_POST['Group12UG'];
-//    $Group12PG = $_POST['Group12PG'];
-//    $Group12LE = $_POST['Group12LE'];
-//    $NameOfInstitution = $_POST['NameOfInstitution'];
-//    $DeptChoice1UG = $_POST['DeptChoice1UG'];
-//    $DeptChoice2UG = $_POST['DeptChoice2UG'];
-//    $DeptChoice3UG = $_POST['DeptChoice3UG'];
-//    $DeptChoice1PG = $_POST['DeptChoice1PG'];
-//    $DeptChoice2PG = $_POST['DeptChoice2PG'];
-//    $DeptChoice3PG = $_POST['DeptChoice3PG'];
-//    $DeptChoice1LE = $_POST['DeptChoice1LE'];
-//    $DeptChoice2LE = $_POST['DeptChoice2LE'];
-//    $DeptChoice3LE = $_POST['DeptChoice3LE'];
-//    $MathsMark = $_POST['MathsMark'];
-//    $PhysicsMark = $_POST['PhysicsMark'];
-//    $ChemistryMark = $_POST['ChemistryMark'];
-//    $Cutoff = $_POST['Cutoff'];
-//    $RegisterNo12 = $_POST['RegisterNo12'];
-//    $NameOfDiplomaCourse = $_POST['NameOfDiplomaCourse'];
-//    $PercentageDiploma = $_POST['PercentageDiploma'];
-//    $NameOfTheCollege = $_POST['NameOfTheCollege'];
-//    $NameOfUGcourse = $_POST['NameOfUGcourse'];
-//    $CGPA = $_POST['CGPA'];
 
    $select = " SELECT * FROM umis WHERE MobileNumber = '$StudentMobileNo' ";
 
    $result = mysqli_query($conn, $select);
 
    if(mysqli_num_rows($result) > 0){
-
-      echo '<span>'."ONLY ONE REGISTRATION!".'</span>';
+      $stmt = $conn->prepare("UPDATE umis SET
+      StudName = ?, StudDOB = ?, StudEmailID = ?, EmisId = ?, Salutation = ?, Gender = ?, BloodGroup = ?, Nationality = ?, Religion = ?, 
+      Caste = ?, AadhaarNumber = ?, Community = ?, FirstGraduate = ?, SpecialAdmissionQuota = ?, DifferentlyAbled = ?, AcademicYearJoining = ?, 
+      Streamtype = ?, CourseType = ?, Course = ?, Branch = ?, MediumOfInstruction = ?, ModeOfStudy = ?, DateOfAdmission = ?, TypeOfAdmission = ?, 
+      LateralEntry = ?, Hosteller = ?, SeekingAdmissionFor = ?, SchoolName10 = ?, MediumOfInstruction10 = ?, TotalMark10 = ?, SchoolName12 = ?, 
+      MediumOfInstruction12 = ?, Group12 = ?, MathsMark = ?, PhysicsMark = ?, ChemistryMark = ?, RegisterNo12 = ?, TotalMark12 = ?, CutOff = ?, 
+      NameOfDiplomaCourse = ?, NameOfDiplomaCollege = ?, PercentageDiploma = ?, NameOfUGCollege = ?, NameOfUGCourse = ?, CGPA = ?, Sport = ?, 
+      SportName = ?, SportLevel = ?, FatherName = ?, FatherOccupation = ?, ParentsMobileNumber = ?, MotherName = ?, MotherOccupation = ?, 
+      Orphan = ?, GuardianName = ?, AnnualFamilyIncome = ?, P_Country = ?, P_State = ?, P_District = ?, P_LocationType = ?, P_Taluk = ?, P_Village = ?, 
+      P_Block = ?, P_Pincode = ?, P_VillagePanchayat = ?, P_PostalAddress = ?, C_Country = ?, C_State = ?, C_District = ?, C_LocationType = ?, 
+      C_Taluk = ?, C_Village = ?, C_Block = ?, C_Pincode = ?, C_VillagePanchayat = ?, C_PostalAddress = ?, AccountNumber = ?, IfscCode = ?, 
+      BankName = ?, BankBranch = ?, City = ?
+      WHERE MobileNumber = ?");
+  
+  $stmt->bind_param(
+      "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+      $StudentName, $dob, $StudentEmailId, $EmisId, $Salutation, $Gender, $BloodGroup, $Nationality, $Religion,
+      $Caste, $AadhaarNumber, $Community, $FirstGraduate, $SpecialAdmissionQuota, $DifferentlyAbled, $AcademicYearJoining,
+      $StreamType, $CourseType, $Course, $Branch, $MediumOfInstruction, $ModeOfStudy, $DateOfAdmission, $TypeOfAdmission,
+      $LateralEntry, $Hosteller, $SeekingAdmissionFor, $SchoolName10, $MediumOfInstruction10, $TotalMark10, $SchoolName12,
+      $MediumOfInstruction12, $Group12, $MathsMark, $PhysicsMark, $ChemistryMark, $RegisterNo12, $TotalMark12, $CutOff,
+      $NameOfDiplomaCourse, $NameOfDiplomaCollege, $PercentageDiploma, $NameOfUGCollege, $NameOfUGCourse, $CGPA, $Sport,
+      $SportName, $SportLevel, $FatherName, $FatherOccupation, $ParentsMobileNumber, $MotherName, $MotherOccupation,
+      $Orphan, $GuardianName, $AnnualFamilyIncome, $P_Country, $P_State, $P_District, $P_LocationType, $P_Taluk, $P_Village,
+      $P_Block, $P_Pincode, $P_VillagePanchayat, $P_PostalAddress, $C_Country, $C_State, $C_District, $C_LocationType,
+      $C_Taluk, $C_Village, $C_Block, $C_Pincode, $C_VillagePanchayat, $C_PostalAddress, $AccountNumber, $IfscCode,
+      $BankName, $BankBranch, $City, $StudentMobileNo
+  );
+  
+  $stmt->execute();
+  $stmt->close();
+  
+     header('location:admission.php');
+      echo '<span>'."DETAILS UPDATED!".'</span>';
 
    }else{
-
       $insert = "INSERT INTO umis (
          StudName, 
          MobileNumber, 

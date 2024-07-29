@@ -1088,14 +1088,14 @@
                                     <!-- schoolname 10th -->
                                     <div class="input-box">
                                         <label for="schoolName10"><b>School Name(studied in 10th Std) </b></label>
-                                        <input type="text" name="SchoolName10" id="schoolName10" placeholder="Enter your school name" />
+                                        <input type="text" name="UGSchoolName10" id="schoolName10" placeholder="Enter your school name" />
                                     </div>
 
                                     <!-- Medium of instruction 10th -->
                                     <div class="input-box">
                                         <label><b>Medium Of Instruction</b></label>
                                         <div class="select-box">
-                                        <select name="MediumOfInstruction10" >
+                                        <select name="UGMediumOfInstruction10" >
                                             <option value="">-- Select MediumOfInstruction --</option>
                                             <option>Tamil</option>
                                             <option>English</option>
@@ -1106,7 +1106,7 @@
                                     <!-- TotalMarks in 10th -->
                                     <div class="input-box">
                                         <label for="tm10"><b>Total Marks(in 10th Std) <span style="color: red;">*</span></b></label>
-                                        <input type="number" name="TotalMark10" id="tm10" min="0" max="500"placeholder="Enter total Marks"  />
+                                        <input type="number" name="UGTotalMark10" id="tm10" min="0" max="500"placeholder="Enter total Marks"  />
                                     </div> 
                                 
                                 </div>
@@ -1187,14 +1187,14 @@
                                 <!-- 12th school name -->
                                 <div class="input-box">
                                     <label for="schoolName12"><b>School Name(studied in 12th Std)</b></label>
-                                    <input type="text" name="SchoolName12" id="schoolName12" placeholder="Enter your school name" />
+                                    <input type="text" name="UGSchoolName12" id="schoolName12" placeholder="Enter your school name" />
                                 </div>
 
                                 <!-- 12th Medium of instruction -->
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction12" >
+                                    <select name="UGMediumOfInstruction12" >
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -1206,7 +1206,7 @@
                                 <div class="input-box">
                                     <label><b>12th Group <span style="color: red;">*</span></b></label>
                                     <div class="select-box">
-                                    <select name="Group12" >
+                                    <select name="Group12UG" >
                                         <option value="">-- Select Group --</option>
                                         <option>Bio-Maths</option>
                                         <option>Computer science-Maths</option>
@@ -1249,7 +1249,7 @@
 
                                     <div class="input-box">
                                         <label for="tm12"><b>Total Marks(in 12th Std) <span style="color: red;">*</span></b></label>
-                                        <input type="number" id="tm12" name="TotalMark12" min="0" max="600"placeholder="Enter total Marks"  />
+                                        <input type="number" id="tm12" name="UGTotalMark12" min="0" max="600"placeholder="Enter total Marks"  />
                                     </div>
 
                                     <div class="input-box">
@@ -1444,13 +1444,13 @@
 
                                 <div class="input-box">
                                     <label for="schoolName10"><b>School Name(studied in 10th Std) </b></label>
-                                    <input name="SchoolName10" type="text" id="schoolName10" placeholder="Enter your school name" />
+                                    <input name="LESchoolName10" type="text" id="schoolName10" placeholder="Enter your school name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction10" >
+                                    <select name="LEMediumOfInstruction10" >
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -1460,7 +1460,7 @@
 
                                 <div class="input-box">
                                     <label for="tm10"><b>Total Marks(in 10th Std) <span style="color: red;">*</span></b></label>
-                                    <input type="number" id="tm10" name="TotalMark10" min="0" max="500"placeholder="Enter total Marks"  />
+                                    <input type="number" id="tm10" name="LETotalMark10" min="0" max="500"placeholder="Enter total Marks"  />
                                 </div>
 
                                 </div>
@@ -1538,13 +1538,13 @@
 
                                 <div class="input-box">
                                     <label for="schoolName12"><b>School Name(studied in 12th Std)</b></label>
-                                    <input name="SchoolName12" type="text" id="schoolName12" placeholder="Enter your school name" />
+                                    <input name="LESchoolName12" type="text" id="schoolName12" placeholder="Enter your school name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction12">
+                                    <select name="LEMediumOfInstruction12">
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -1566,7 +1566,7 @@
 
                                 <div class="input-box">
                                     <label for="tm12"><b>Total Marks(in 12th std) </b></label>
-                                    <input type="number" id="tm12" name="TotalMark12" min="0" max="600"placeholder="Enter total Marks" />
+                                    <input type="number" id="tm12" name="LETotalMark12" min="0" max="600"placeholder="Enter total Marks" />
                                 </div>
 
                                 </div>
@@ -1757,13 +1757,13 @@
 
                                 <div class="input-box">
                                     <label for="schoolName10"><b>School Name(studied in 10th Std) </b></label>
-                                    <input type="text" name="SchoolName10" id="schoolName10" placeholder="Enter your school name" />
+                                    <input type="text" name="PGSchoolName10" id="schoolName10" placeholder="Enter your school name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction10" >
+                                    <select name="PGMediumOfInstruction10" >
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -1773,7 +1773,7 @@
 
                                 <div class="input-box">
                                     <label for="tm10"><b>Total Marks(in 10th Std) <span style="color: red;">*</span></b></label>
-                                    <input type="number" id="tm10" name="TotalMark10" min="0" max="500"placeholder="Enter total Marks"  />
+                                    <input type="number" id="tm10" name="PGTotalMark10" min="0" max="500"placeholder="Enter total Marks"  />
                                 </div>
 
                                 </div>
@@ -1849,13 +1849,13 @@
                                 <div class="column">
                                 <div class="input-box">
                                     <label for="schoolName12"><b>School Name(studied in 12th Std)</b></label>
-                                    <input type="text" name="SchoolName12" id="schoolName12" placeholder="Enter your school name" />
+                                    <input type="text" name="PGSchoolName12" id="schoolName12" placeholder="Enter your school name" />
                                 </div>
 
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction12" >
+                                    <select name="PGMediumOfInstruction12" >
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -1866,7 +1866,7 @@
                                 <div class="input-box">
                                     <label><b>12th Group </b></label>
                                     <div class="select-box">
-                                    <select name="Group12" >
+                                    <select name="Group12PG" >
                                         <option value="">-- Select Group --</option>
                                         <option>Bio-Maths</option>
                                         <option>Computer science-Maths</option>
@@ -1877,7 +1877,7 @@
 
                                 <div class="input-box">
                                     <label for="tm12"><b>Total Marks(in 12th std) </b></label>
-                                    <input type="number" id="tm12" name="TotalMark12" min="0" max="600"placeholder="Enter total Marks"  />
+                                    <input type="number" id="tm12" name="PGTotalMark12" min="0" max="600"placeholder="Enter total Marks"  />
                                 </div>
                                 </div>
 
@@ -1963,7 +1963,7 @@
 
                                 <div class="input-box">
                                     <label for="cgpa"><b> CGPA or Percentage <span style="color: red;">*</span></b></label>
-                                    <input type="number" id="cgpa" name="CGPA" min="0" max="10"placeholder="Enter your percentage"  />
+                                    <input type="number" step="any" id="cgpa" name="CGPA" min="0" max="10"placeholder="Enter your percentage"  />
                                 </div>
                                 </div>      
                                 
