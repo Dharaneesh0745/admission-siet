@@ -584,7 +584,7 @@
               <div class="input-box">
                 <label for="ugchoice1"><b>Choice 1 <span style="color: red;">*</span></b></label>
                 <div id="ugchoice1" class="select-box">
-                  <select id="DeptChoice1UG" name="DeptChoice1UG" required>
+                  <select id="DeptChoice1UG" name="DeptChoice1UG">
                     <option value="">-- Select Department --</option>
                     <option>BE Mechanical Engineering</option>
                     <option>BE Computer Science and Engineering</option>
