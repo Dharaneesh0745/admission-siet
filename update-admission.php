@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>
-            Admission Form
+            Admission Update Form
         </title>
         <link rel="stylesheet" href="styles/admission.css">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -25,9 +25,9 @@
         </script>
         <script src="jquery-ui/jquery-ui.min.js">
         </script>
-        <script src="script/admission-update-autofil.js">
-        </script>
         <link rel="stylesheet" href="jquery-ui\jquery-ui.min.css">
+        <script src="script/update-autofill.js">
+        </script>
         <script src="script/uploadfiles.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -84,7 +84,7 @@
                                 General Information
                             </b>
                         </header>
-                        <form action="admission-backend.php" method="post" class="form">
+                        <form action="update-admission-backend.php" method="post" class="form">
 
 
                             <div class="photo-container">
@@ -107,7 +107,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="text" id="StudentName" name="StudentName" placeholder="Enter full name"
+                                    <input type="text" id="StudentName" name="StudentName" placeholder="Enter full name""
                                     />
                                 </div>
                                 <!-- Student mobile number -->
@@ -118,6 +118,7 @@
                                             <span style="color: red;">
                                                 *
                                             </span>
+                                            <span id="Testing"></span>
                                         </b>
                                     </label>
                                     <!-- <input type="number" id="StudentMobileNo" maxlength="10" name="StudentMobileNo" placeholder="Enter phone number"  /> -->
@@ -167,8 +168,7 @@
                                         <button type="button" data-file-input="ProfilePhoto" class="uploadButton" onclick="uploadPhoto()">Upload Photo</button>
                                     </div>
                                 </div>
-                                
-
+                            
                                 <script>
                                     const ProfilePhoto = document.getElementById('ProfilePhoto');
                                     const photoBox = document.getElementById('photoBox');
@@ -215,8 +215,7 @@
                                             Student's Email Address
                                         </b>
                                     </label>
-                                    <input type="text" id="StudentEmailId" name="StudentEmailId" placeholder="Enter email address"
-                                    />
+                                    <input type="text" id="StudentEmailId" name="StudentEmailId" placeholder="Enter email address"/>
                                 </div>
                                 <div class="input-box">
                                     <label>
@@ -237,7 +236,7 @@
                                         </b>
                                     </label>
                                     <div class="select-box">
-                                        <select id="salute" name="Salutation">
+                                        <select id="Salutation" name="Salutation">
                                             <option hidden>
                                                 Selvan / Selvi
                                             </option>
@@ -650,7 +649,7 @@
                                     </label>
                                     <div class="yes-option">
                                         <div class="yes">
-                                            <input type="radio" id="SpecialAdmissionQuota" name="SpecialAdmissionQuota" value="yes">
+                                            <input type="radio" id="SpecialAdmissionQuotaYes" name="SpecialAdmissionQuota" value="yes">
                                             <label for="sportYes">
                                                 <b>
                                                     Yes
@@ -658,7 +657,7 @@
                                             </label>
                                         </div>
                                         <div class="yes">
-                                            <input type="radio" id="SpecialAdmissionQuota" name="SpecialAdmissionQuota" value="no" checked>
+                                            <input type="radio" id="SpecialAdmissionQuotaNo" name="SpecialAdmissionQuota" value="no" checked>
                                             <label for="sportNo">
                                                 <b>
                                                     No
@@ -706,7 +705,7 @@
                             <div class="column" style="margin-top: 10px;">
                                 <div class="input-box">
                                     <label for=""><b>Academic Year of Joining  <span style="color: red;">*</span></b></label>
-                                    <input type="number" id="" name="AcademicYearJoining" min="1900" max="2100" >
+                                    <input type="number" id="AcademicYearJoining" name="AcademicYearJoining" min="1900" max="2100" >
                                 </div>
 
                                 <!-- Course -->
@@ -784,7 +783,7 @@
                                 <div class="input-box">
                                     <label><b>Medium Of Instruction</b></label>
                                     <div class="select-box">
-                                    <select name="MediumOfInstruction" >
+                                    <select name="MediumOfInstruction" id="MediumOfInstruction">
                                         <option value="">-- Select MediumOfInstruction --</option>
                                         <option>Tamil</option>
                                         <option>English</option>
@@ -795,7 +794,7 @@
                                 <div class="input-box">
                                     <label><b>Mode Of Study <span style="color: red;">*</span></b></label>
                                     <div class="select-box">
-                                    <select name="ModeOfStudy" >
+                                    <select name="ModeOfStudy" id="ModeOfStudy">
                                         <option value="">-- Select Mode --</option>
                                         <option>Regular</option>
                                         <option>Hybrid</option>
@@ -806,7 +805,7 @@
                                 
                                 <div class="input-box">
                                     <label><b>Date Of Admission <span style="color: red;">*</span></b></label>
-                                    <input type="date" name="DateOfAdmission" placeholder="Enter Admission date"  />
+                                    <input type="date" id="DateOfAdmission" name="DateOfAdmission" placeholder="Enter Admission date"  />
                                 </div>
 
                                 <div class="input-box">

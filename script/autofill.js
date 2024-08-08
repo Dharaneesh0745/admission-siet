@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  console.log("OKAY");
   $("#StudentMobileNo").autocomplete({
       source:function(request,response){
           $.ajax({

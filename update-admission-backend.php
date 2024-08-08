@@ -1,5 +1,4 @@
 <?php
-
 @include 'config.php';
 
 if(isset($_POST['submit'])){ 
@@ -41,14 +40,6 @@ if(isset($_POST['submit'])){
        $SchoolName10 = $_POST['LESchoolName10'];
     }else{
        $SchoolName10 = $_POST['PGSchoolName10'];
-    }
-
-    if($_POST['BoardUG']){
-       $Board10 = $_POST['BoardUG'];
-    }else if($_POST['BoardLE']){
-       $Board10 = $_POST['BoardLE'];
-    }else{
-       $Board10 = $_POST['BoardPG'];
     }
 
     if($_POST['UGSchoolName12']){
@@ -171,198 +162,45 @@ if(isset($_POST['submit'])){
 
    $result = mysqli_query($conn, $select);
 
-   if(mysqli_num_rows($result) > 0){
-      header('location:admission.php');
-      echo '<span>'."Only One Registration per account".'</span>';
 
-   }else{
-      $insert = "INSERT INTO umis (
-         StudName, 
-         StudentMobileNo, 
-         StudDOB, 
-         StudEmailID, 
-         EmisId, 
-         Salutation,
-         Gender, 
-         BloodGroup, 
-         Nationality, 
-         Religion, 
-         Caste, 
-         AadhaarNumber, 
-         Community, 
-         FirstGraduate, 
-         SpecialAdmissionQuota, 
-         DifferentlyAbled,
-         
-         AcademicYearJoining,
-         Streamtype,
-         CourseType,
-         Course,
-         Branch,
-         MediumOfInstruction,
-         ModeOfStudy,
-         DateOfAdmission,
-         TypeOfAdmission,
-         LateralEntry,
-         Hosteller,
-
-         SeekingAdmissionFor,
-         SchoolName10,
-         Board10,
-         MediumOfInstruction10,
-         TotalMark10,
-         SchoolName12,
-         MediumOfInstruction12,
-         Group12,
-         MathsMark,
-         PhysicsMark,
-         ChemistryMark,
-         RegisterNo12,
-         TotalMark12,
-         CutOff,
-         NameOfDiplomaCourse,
-         NameOfDiplomaCollege,
-         PercentageDiploma,
-         NameOfUGCollege,
-         NameOfUGCourse,
-         CGPA,
-         Sport,
-         SportName,
-         SportLevel,
-
-         FatherName, 
-         FatherOccupation, 
-         ParentsMobileNumber, 
-         MotherName, 
-         MotherOccupation, 
-         Orphan, 
-         GuardianName, 
-         AnnualFamilyIncome, 
-
-         P_Country, 
-         P_State, 
-         P_District, 
-         P_LocationType, 
-         P_Taluk, 
-         P_Village, 
-         P_Block, 
-         P_Pincode,
-         P_VillagePanchayat, 
-         P_PostalAddress, 
-
-         C_Country, 
-         C_State, 
-         C_LocationType, 
-         C_District, 
-         C_Taluk, 
-         C_Village, 
-         C_Block,
-         C_Pincode, 
-         C_VillagePanchayat, 
-         C_PostalAddress,
-          
-         AccountNumber,
-         IfscCode, 
-         BankName, 
-         BankBranch, 
-         City
-     ) VALUES (
-        '$StudentName',
-        '$StudentMobileNo',
-        '$dob',
-        '$StudentEmailId',
-        '$EmisId',
-        '$Salutation',
-        '$Gender',
-        '$BloodGroup',
-        '$Nationality',
-        '$Religion',
-        '$Caste',
-        '$AadhaarNumber',
-        '$Community',
-        '$FirstGraduate',
-        '$SpecialAdmissionQuota',
-        '$DifferentlyAbled',
-
-        '$AcademicYearJoining',
-        '$StreamType',
-        '$CourseType',
-        '$Course',
-        '$Branch',
-        '$MediumOfInstruction',
-        '$ModeOfStudy',
-        '$DateOfAdmission',
-        '$TypeOfAdmission',
-        '$LateralEntry',
-        '$Hosteller',
-
-        '$SeekingAdmissionFor',
-        '$SchoolName10',
-        '$Board10',
-        '$MediumOfInstruction10',
-        '$TotalMark10',
-        '$SchoolName12',
-        '$MediumOfInstruction12',
-        '$Group12',
-        '$MathsMark',
-        '$PhysicsMark',
-        '$ChemistryMark',
-        '$RegisterNo12',
-        '$TotalMark12',
-        '$CutOff',
-        '$NameOfDiplomaCourse',
-        '$NameOfDiplomaCollege',
-        '$PercentageDiploma',
-        '$NameOfUGCollege',
-        '$NameOfUGCourse',
-        '$CGPA',
-        '$Sport',
-        '$SportName',
-        '$SportLevel',
-
-        '$FatherName',
-        '$FatherOccupation',
-        '$ParentsMobileNumber',
-        '$MotherName',
-        '$MotherOccupation',
-        '$Orphan',
-        '$GuardianName',
-        '$AnnualFamilyIncome',
-
-        '$P_Country',
-        '$P_State',
-        '$P_District',
-        '$P_LocationType',
-        '$P_Taluk',
-        '$P_Village',
-        '$P_Block',
-        '$P_Pincode',
-        '$P_VillagePanchayat',
-        '$P_PostalAddress',
-
-        '$C_Country',
-        '$C_State',
-        '$C_District',
-        '$C_LocationType',
-        '$C_Taluk',
-        '$C_Village',
-        '$C_Block',
-        '$C_Pincode',
-        '$C_VillagePanchayat',
-        '$C_PostalAddress',
-
-        '$AccountNumber',
-        '$IfscCode',
-        '$BankName',
-        '$BankBranch',
-        '$City'
-       
-     )";
-     
-    mysqli_query($conn, $insert);
-    header('location:admission.php');
+    if(mysqli_num_rows($result) > 0){
+        $stmt = $conn->prepare("UPDATE umis SET
+        StudName = ?, StudDOB = ?, StudEmailID = ?, EmisId = ?, Salutation = ?, Gender = ?, BloodGroup = ?, Nationality = ?, Religion = ?, 
+        Caste = ?, AadhaarNumber = ?, Community = ?, FirstGraduate = ?, SpecialAdmissionQuota = ?, DifferentlyAbled = ?, AcademicYearJoining = ?, 
+        Streamtype = ?, CourseType = ?, Course = ?, Branch = ?, MediumOfInstruction = ?, ModeOfStudy = ?, DateOfAdmission = ?, TypeOfAdmission = ?, 
+        LateralEntry = ?, Hosteller = ?, SeekingAdmissionFor = ?, SchoolName10 = ?, MediumOfInstruction10 = ?, TotalMark10 = ?, SchoolName12 = ?, 
+        MediumOfInstruction12 = ?, Group12 = ?, MathsMark = ?, PhysicsMark = ?, ChemistryMark = ?, RegisterNo12 = ?, TotalMark12 = ?, CutOff = ?, 
+        NameOfDiplomaCourse = ?, NameOfDiplomaCollege = ?, PercentageDiploma = ?, NameOfUGCollege = ?, NameOfUGCourse = ?, CGPA = ?, Sport = ?, 
+        SportName = ?, SportLevel = ?, FatherName = ?, FatherOccupation = ?, ParentsMobileNumber = ?, MotherName = ?, MotherOccupation = ?, 
+        Orphan = ?, GuardianName = ?, AnnualFamilyIncome = ?, P_Country = ?, P_State = ?, P_District = ?, P_LocationType = ?, P_Taluk = ?, P_Village = ?, 
+        P_Block = ?, P_Pincode = ?, P_VillagePanchayat = ?, P_PostalAddress = ?, C_Country = ?, C_State = ?, C_District = ?, C_LocationType = ?, 
+        C_Taluk = ?, C_Village = ?, C_Block = ?, C_Pincode = ?, C_VillagePanchayat = ?, C_PostalAddress = ?, AccountNumber = ?, IfscCode = ?, 
+        BankName = ?, BankBranch = ?, City = ?
+        WHERE StudentMobileNo = ?");
+    
+    $stmt->bind_param(
+        "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+        $StudentName, $dob, $StudentEmailId, $EmisId, $Salutation, $Gender, $BloodGroup, $Nationality, $Religion,
+        $Caste, $AadhaarNumber, $Community, $FirstGraduate, $SpecialAdmissionQuota, $DifferentlyAbled, $AcademicYearJoining,
+        $StreamType, $CourseType, $Course, $Branch, $MediumOfInstruction, $ModeOfStudy, $DateOfAdmission, $TypeOfAdmission,
+        $LateralEntry, $Hosteller, $SeekingAdmissionFor, $SchoolName10, $MediumOfInstruction10, $TotalMark10, $SchoolName12,
+        $MediumOfInstruction12, $Group12, $MathsMark, $PhysicsMark, $ChemistryMark, $RegisterNo12, $TotalMark12, $CutOff,
+        $NameOfDiplomaCourse, $NameOfDiplomaCollege, $PercentageDiploma, $NameOfUGCollege, $NameOfUGCourse, $CGPA, $Sport,
+        $SportName, $SportLevel, $FatherName, $FatherOccupation, $ParentsMobileNumber, $MotherName, $MotherOccupation,
+        $Orphan, $GuardianName, $AnnualFamilyIncome, $P_Country, $P_State, $P_District, $P_LocationType, $P_Taluk, $P_Village,
+        $P_Block, $P_Pincode, $P_VillagePanchayat, $P_PostalAddress, $C_Country, $C_State, $C_District, $C_LocationType,
+        $C_Taluk, $C_Village, $C_Block, $C_Pincode, $C_VillagePanchayat, $C_PostalAddress, $AccountNumber, $IfscCode,
+        $BankName, $BankBranch, $City, $StudentMobileNo
+    );
+    
+    $stmt->execute();
+    $stmt->close();
+    
+        header('location:update-admission.php');
+        echo '<span>'."DETAILS UPDATED!".'</span>';
     }
+}
 
-};
-
-?>
+else{
+    echo "No Registration Made";
+}
