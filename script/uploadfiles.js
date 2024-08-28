@@ -1,5 +1,7 @@
 $(document).ready(function() {
     $('.uploadButton').click(function() {
+        preventDefault();
+
         var fileInputName = $(this).data('file-input');
         var fileInput = $('input[name="' + fileInputName + '"]')[0];
         if(fileInputName=="UGTotalMark10Document"||fileInputName=="LETotalMark10Document"||fileInputName=="PGTotalMark10Document"){

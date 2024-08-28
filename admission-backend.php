@@ -266,7 +266,6 @@ if(isset($_POST['submit'])){
 
    mysqli_query($conn, $update);
     header('location:admission.php');
-      echo '<span>'."Only One Registration per account".'</span>';
 
    }else{
       $insert = "INSERT INTO umis (
