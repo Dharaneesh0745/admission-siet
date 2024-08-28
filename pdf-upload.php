@@ -8,7 +8,7 @@
 if (isset($_FILES['file']) && isset($_POST['column']) && isset($_POST['StudentMobileNo'])) {
     $file = $_FILES['file'];
     $column = $_POST['column'];
-    $MobileNumber = $_POST['StudentMobileNo'];
+    $StudentMobileNo = $_POST['StudentMobileNo'];
 
     if ($file['tmp_name'] != '') {
         $pdfdata = addslashes(file_get_contents($file['tmp_name']));
@@ -26,15 +26,15 @@ if (isset($_FILES['file']) && isset($_POST['column']) && isset($_POST['StudentMo
         'TransferCertificate'];
 
         if (in_array($column, $allowedColumns)) {
-            $stmt = $conn->prepare("SELECT * FROM umis WHERE MobileNumber = ?");
-            $stmt->bind_param("s", $MobileNumber);
+            $stmt = $conn->prepare("SELECT * FROM umis WHERE StudentMobileNo = ?");
+            $stmt->bind_param("s", $StudentMobileNo);
             $stmt->execute();
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                $query = "UPDATE umis SET $column = ? WHERE MobileNumber = ?";
+                $query = "UPDATE umis SET $column = ? WHERE StudentMobileNo = ?";
                 $stmt = $conn->prepare($query);
-                $stmt->bind_param("ss", $pdfdata, $MobileNumber);
+                $stmt->bind_param("ss", $pdfdata, $StudentMobileNo);
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {
@@ -44,9 +44,9 @@ if (isset($_FILES['file']) && isset($_POST['column']) && isset($_POST['StudentMo
                 }
                 $stmt->close();
             } else {
-                $query = "INSERT INTO umis (MobileNumber, $column) VALUES (?, ?)";
+                $query = "INSERT INTO umis (StudentMobileNo, $column) VALUES (?, ?)";
                 $stmt = $conn->prepare($query);
-                $stmt->bind_param("ss", $MobileNumber, $pdfdata);
+                $stmt->bind_param("ss", $StudentMobileNo, $pdfdata);
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {
