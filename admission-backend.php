@@ -173,9 +173,8 @@ if(isset($_POST['submit'])){
 
    if(mysqli_num_rows($result) > 0){
       header('location:admission.php');
-      $update = "UPDTAE umis SET (
+      $update = "UPDATE umis SET (
          StudName, 
-         StudentMobileNo, 
          StudDOB, 
          StudEmailID, 
          EmisId, 
@@ -265,7 +264,6 @@ if(isset($_POST['submit'])){
          City
      ) VALUES (
         '$StudentName',
-        '$StudentMobileNo',
         '$dob',
         '$StudentEmailId',
         '$EmisId',
@@ -353,7 +351,7 @@ if(isset($_POST['submit'])){
         '$BankName',
         '$BankBranch',
         '$City'
-     )";
+     ) WHERE StudentMobileNo = $StudentMobileNo";
     mysqli_query($conn, $update);
     header('location:admission.php');
       echo '<span>'."Only One Registration per account".'</span>';
