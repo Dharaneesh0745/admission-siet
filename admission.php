@@ -109,7 +109,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="text" id="StudentName" name="StudentName" placeholder="Enter full name"
+                                    <input type="text" id="StudentName" name="StudentName" placeholder="Enter full name" required
                                     />
                                 </div>
                                 <!-- Student mobile number -->
@@ -123,7 +123,7 @@
                                         </b>
                                     </label>
                                     <!-- <input type="number" id="StudentMobileNo" maxlength="10" name="StudentMobileNo" placeholder="Enter phone number"  /> -->
-                                    <input id="StudentMobileNo" type="number" name="StudentMobileNo" placeholder="Enter student Number" oninput="validatestudentPhoneNumber(this)" >
+                                    <input id="StudentMobileNo" type="number" name="StudentMobileNo" placeholder="Enter student Number" oninput="validatestudentPhoneNumber(this)" required >
                                     <span id="studentphoneError" class="hidden" style="color: red;">Phone number must be exactly 10 digits.</span>
                                     <script>
                                     function validatestudentPhoneNumber(input) {
@@ -153,7 +153,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="date" id="dob" name="dob" placeholder="Enter birth date"
+                                    <input type="date" id="dob" name="dob" placeholder="Enter birth date" required
                                     />
                                 </div>
 
@@ -217,7 +217,7 @@
                                             Student's Email Address
                                         </b>
                                     </label>
-                                    <input type="text" id="StudentEmailId" name="StudentEmailId" placeholder="Enter email address"
+                                    <input type="text" id="StudentEmailId" name="StudentEmailId" placeholder="Enter email address" required
                                     />
                                 </div>
                                 <div class="input-box">
@@ -226,7 +226,7 @@
                                             EMIS Number
                                         </b>
                                     </label>
-                                    <input type="number" id="EmisId" name="EmisId" placeholder="Enter EMIS number"
+                                    <input type="number" id="EmisId" name="EmisId" placeholder="Enter EMIS number" required
                                     />
                                 </div>
                                 <div class="input-box">
@@ -239,7 +239,7 @@
                                         </b>
                                     </label>
                                     <div class="select-box">
-                                        <select id="salute" name="Salutation">
+                                        <select id="salute" name="Salutation" required>
                                             <option hidden>
                                                 Selvan / Selvi
                                             </option>
@@ -262,7 +262,7 @@
                                         </b>
                                     </label>
                                     <div class="select-box">
-                                        <select id="Gender" name="Gender">
+                                        <select id="Gender" name="Gender" required>
                                             <option hidden>
                                                 gender
                                             </option>
@@ -290,7 +290,7 @@
                                         </b>
                                     </label>
                                     <div class="select-box">
-                                        <select id="BloodGroup" name="BloodGroup">
+                                        <select id="BloodGroup" name="BloodGroup" required>
                                             <option hidden>
                                                 Blood Group
                                             </option>
@@ -325,7 +325,7 @@
                                         </b>
                                     </label>
                                     <div class="select-box">
-                                        <select id="Nationality" name="Nationality">
+                                        <select id="Nationality" name="Nationality" required>
                                             <option hidden>
                                                 Nationality
                                             </option>
@@ -349,7 +349,7 @@
                                         </b>
                                     </label>
                                     <div class="select-box">
-                                        <select id="Religion" name="Religion">
+                                        <select id="Religion" name="Religion" required>
                                             <option hidden>
                                                 religion
                                             </option>
@@ -372,7 +372,7 @@
                                             Caste
                                         </b>
                                     </label>
-                                    <input type="text" id="Caste" name="Caste" placeholder="Enter Caste"
+                                    <input type="text" id="Caste" name="Caste" placeholder="Enter Caste" required
                                     />
                                 </div>
                             </div>
@@ -381,7 +381,7 @@
                                 <!-- Aadhar Number Input -->
                                 <div class="input-box">
                                     <label><b>Aadhar Number</b></label>
-                                    <input type="number" id="AadhaarNumber" name="AadhaarNumber" placeholder="Enter Aadhar number"/>
+                                    <input type="number" id="AadhaarNumber" name="AadhaarNumber" placeholder="Enter Aadhar number" required/>
                                 </div>
 
                                 <!-- Aadhar Card PDF Upload -->
@@ -454,7 +454,7 @@
                                 <div class="input-box">
                                     <label><b>Community <span style="color: red;">*</span></b></label>
                                     <div class="select-box">
-                                        <select id="Community" name="Community">
+                                        <select id="Community" name="Community" required>
                                             <option hidden>Community</option>
                                             <option>OC</option>
                                             <option>BC</option>
@@ -1049,7 +1049,7 @@
                                 <div class="input-box">
                                     <label for="educationLevel"><b>Seeking Admission For :</b></label>
                                     <div class="select-box">
-                                        <select name="SeekingAdmissionFor" id="educationLevel" >
+                                        <select name="SeekingAdmissionFor" id="educationLevel" required>
                                             <option value="">-- Select --</option>
                                             <option value="UG">B.E/B.TECH First Year</option>
                                             <option value="LE">B.E/B.TECH Lateral</option>
@@ -2079,7 +2079,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="text" id="FatherName" name="FatherName" placeholder="Enter full name"
+                                    <input type="text" id="FatherName" name="FatherName" placeholder="Enter full name" required
                                     />
                                 </div>
                                 <div class="input-box">
@@ -2089,7 +2089,7 @@
                                         </b>
                                     </label>
                                     <div class="select-box">
-                                        <select id="FatherOccupation" name="FatherOccupation">
+                                        <select id="FatherOccupation" name="FatherOccupation" required>
                                             <option hidden>
                                                 Occupation
                                             </option>
@@ -2119,7 +2119,7 @@
                                         </b>
                                     </label>
                                     <!-- <input type="number" id="ParentsMobileNo" size="10" name="ParentsMobileNo" placeholder="Enter Parent Number"/> -->
-                                    <input id="ParentsMobileNo" type="number" name="ParentsMobileNumber" placeholder="Enter Parent Number" oninput="validateParentPhoneNumber(this)" >
+                                    <input id="ParentsMobileNo" type="number" name="ParentsMobileNumber" placeholder="Enter Parent Number" oninput="validateParentPhoneNumber(this)" required >
                                     <span id="parentphoneError" class="hidden" style="color: red;">Phone number must be exactly 10 digits.</span>
                                 </div>
 
@@ -2222,7 +2222,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="number" id="AnnualFamilyIncome" name="AnnualFamilyIncome" placeholder="Enter Annual Family Income"
+                                    <input type="number" id="AnnualFamilyIncome" name="AnnualFamilyIncome" placeholder="Enter Annual Family Income" required
                                     />
                                 </div>
 
@@ -2301,7 +2301,7 @@
                             <div class="column" style="margin-top: 10px;">
                                 <div class="input-box">
                                     <label><b>Country</b></label>
-                                    <input id="P_Country" type="text" name="P_Country" placeholder="Enter Country" oninput="toUpperCase(this)">
+                                    <input id="P_Country" type="text" name="P_Country" placeholder="Enter Country" oninput="toUpperCase(this)" required>
                                 </div>
 
                                 <div class="input-box">
@@ -2470,7 +2470,7 @@
                                         </b>
                                     </label>
                                     <div class="select-box">
-                                        <select id="P_LocationType" name="P_LocationType">
+                                        <select id="P_LocationType" name="P_LocationType" required>
                                             <option hidden>
                                                 --select--
                                             </option>
@@ -2501,7 +2501,7 @@
                                             Village
                                         </b>
                                     </label>
-                                    <input id="P_Village" type="text" name="P_Village" placeholder="Enter Your Village">
+                                    <input id="P_Village" type="text" name="P_Village" placeholder="Enter Your Village" required>
                                 </div>                            
                             </div>
                             <div class="column">
@@ -2511,7 +2511,7 @@
                                             Block
                                         </b>
                                     </label>
-                                    <input id="P_Block" type="text" name="P_Block" placeholder="Enter Block">
+                                    <input id="P_Block" type="text" name="P_Block" placeholder="Enter Block" required>
                                 </div>
                                 <div class="input-box">
                                     <label>
@@ -2519,7 +2519,7 @@
                                             Pincode
                                         </b>
                                     </label>
-                                    <input id="P_Pincode" type="number" name="P_Pincode" placeholder="Enter Pincode">
+                                    <input id="P_Pincode" type="number" name="P_Pincode" placeholder="Enter Pincode" required>
                                 </div>
                                 <div class="input-box">
                                     <label>
@@ -2527,7 +2527,7 @@
                                             Village Panchayat
                                         </b>
                                     </label>
-                                    <input id="P_VillagePanchayat" type="text" name="P_VillagePanchayat" placeholder="Enter Village Panchayat">
+                                    <input id="P_VillagePanchayat" type="text" name="P_VillagePanchayat" placeholder="Enter Village Panchayat" required>
                                 </div>
                             </div>                         
                             
@@ -2538,7 +2538,7 @@
                                             Postal Address
                                         </b>
                                     </label>
-                                    <input id="P_PostalAddress" type="text" name="P_PostalAddress" placeholder="Enter Address">
+                                    <input id="P_PostalAddress" type="text" name="P_PostalAddress" placeholder="Enter Address" required>
                                 </div>
                             </div>                  
 
@@ -2719,7 +2719,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="text" id="AccountNumber" name="AccountNumber" placeholder="Enter Account Number"
+                                    <input type="text" id="AccountNumber" name="AccountNumber" placeholder="Enter Account Number" required
                                     />
                                 </div>
                                 <div class="input-box">
@@ -2731,7 +2731,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="text" id="IfscCode" name="IfscCode" placeholder="Enter IFSC Code"
+                                    <input type="text" id="IfscCode" name="IfscCode" placeholder="Enter IFSC Code" required
                                     />
                                 </div>
                                 <div class="input-box">
@@ -2743,7 +2743,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="text" id="BankName" name="BankName" placeholder="Enter Bank name"
+                                    <input type="text" id="BankName" name="BankName" placeholder="Enter Bank name" required
                                     />
                                 </div>
                                 <div class="input-box">
@@ -2755,7 +2755,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="text" id="BankBranch" name="BankBranch" placeholder="Enter Branch name"
+                                    <input type="text" id="BankBranch" name="BankBranch" placeholder="Enter Branch name" required
                                     />
                                 </div>
                                 <div class="input-box">
@@ -2767,7 +2767,7 @@
                                             </span>
                                         </b>
                                     </label>
-                                    <input type="text" id="City" name="City" placeholder="Enter City"
+                                    <input type="text" id="City" name="City" placeholder="Enter City" required
                                     />
                                 </div>
                             </div>

@@ -103,7 +103,7 @@
             <!-- Student name -->
             <div class="input-box">
               <label><b>Student's Full Name <span style="color: red;">*</span></b></label>
-              <input type="text" id="StudentName" name="StudentName" placeholder="Enter full name" />
+              <input type="text" id="StudentName" name="StudentName" placeholder="Enter full name" required/>
             </div>
 
             <!-- Student mobile number -->
@@ -117,7 +117,7 @@
             <!-- date of birth -->
             <div class="input-box">
               <label><b>Date Of Birth <span style="color: red;">*</span></b></label>
-              <input type="date" id="dob" name="dob" placeholder="Enter birth date"  />
+              <input type="date" id="dob" name="dob" placeholder="Enter birth date" required />
             </div>
           </div>
           
@@ -125,18 +125,18 @@
           <div class="column">
             <div class="input-box">
               <label><b>Student's Email Address</b></label>
-              <input type="text" id="StudentEmailId" name="StudentEmailId" placeholder="Enter email address"  />
+              <input type="text" id="StudentEmailId" name="StudentEmailId" placeholder="Enter email address"  required/>
             </div>
 
             <div class="input-box">
               <label><b>EMIS Number </b></label>
-              <input type="number" id="EmisId" name="EmisId" placeholder="Enter EMIS number"/>
+              <input type="number" id="EmisId" name="EmisId" placeholder="Enter EMIS number" required/>
             </div>
 
             <div class="input-box">
               <label><b>Gender <span style="color: red;">*</span></b></label>
               <div class="select-box">
-                <select id="Gender" name="Gender" >
+                <select id="Gender" name="Gender" required>
                   <option hidden>gender</option>
                   <option>Male</option>
                   <option>Female</option>
@@ -151,18 +151,18 @@
             <!-- Father name -->
             <div class="input-box">
               <label><b>Father's Name <span style="color: red;">*</span></b></label>
-              <input type="text" id="FatherName" name="FatherName" placeholder="Enter full name"  />
+              <input type="text" id="FatherName" name="FatherName" placeholder="Enter full name" required />
             </div>
             <!-- father mobile no -->
             <div class="input-box">
               <label><b>Father's Mobile Number <span style="color: red;">*</span></b></label>
-              <input type="number" id="ParentsMobileNo" name="ParentsMobileNo" placeholder="Enter phone number" />
+              <input type="number" id="ParentsMobileNo" name="ParentsMobileNo" placeholder="Enter phone number" required />
             </div>
             <!-- Father occupation -->
             <div class="input-box">
               <label><b>Father's Occupation</b></label>
               <div class="select-box">
-                <select id="FatherOccupation" name="FatherOccupation">
+                <select id="FatherOccupation" name="FatherOccupation" required>
                   <option hidden>Occupation</option>
                   <option>Private employee</option>
                   <option>Government employee</option>
@@ -179,7 +179,7 @@
             <div class="input-box">
               <label><b>Nationality</b></label>
               <div class="select-box">
-                <select id="Nationality" name="Nationality">
+                <select id="Nationality" name="Nationality" required>
                   <option hidden>Nationality</option>
                   <option>Indian</option>
                   <option>NRI</option>
@@ -191,7 +191,7 @@
             <div class="input-box">
               <label><b>Religion </b></label>
               <div class="select-box">
-                <select id="Religion" name="Religion" >
+                <select id="Religion" name="Religion" required>
                   <option hidden>religion</option>
                   <option>Hindu</option>
                   <option>Muslim</option>
@@ -203,7 +203,7 @@
             <div class="input-box">            
               <label><b>Community <span style="color: red;">*</span></b></label>
               <div class="select-box">
-                <select id="Community" name="Community" >
+                <select id="Community" name="Community" required>
                   <option hidden>Community</option>
                   <option>OC</option>
                   <option>BC</option>
@@ -239,12 +239,12 @@
             <!-- pincode -->
             <div class="input-box">
               <label><b>PinCode</b></label>
-              <input id="Pincode" type="number" name="Pincode" maxlength="6" placeholder="Enter the pincode">
+              <input id="Pincode" type="number" name="Pincode" maxlength="6" placeholder="Enter the pincode" required>
             </div>
             <!-- village -->
             <div class="input-box">
               <label><b>Village</b></label>
-              <input id="Village" type="text" name="Village" placeholder="Enter Your Village">
+              <input id="Village" type="text" name="Village" placeholder="Enter Your Village" required>
             </div>
 
           </div>
@@ -289,7 +289,7 @@
             <div class="input-box">
               <label for="SeekingAdmission"><b>Seeking Admission For :</b></label>
               <div class="select-box">
-                <select name="SeekingAdmission" id="SeekingAdmission" >
+                <select name="SeekingAdmission" id="SeekingAdmission" required>
                   <option value="">-- Select --</option>
                   <option value="UG">B.E/B.TECH First Year</option>
                   <option value="LE">B.E/B.TECH Lateral</option>
@@ -540,7 +540,7 @@
                 <div class="input-box">
                   <label for="SportName"><b>Select Your Sport :</b></label>
                   <div class="select-box">
-                    <select name="SportName" name = "SportName" id="sportList" required>
+                    <select name="SportName" name = "SportName" id="sportList">
                       <option value="none">--Select Sport--</option>
                       <option value="football">Football</option>
                       <option value="basketball">Basketball</option>
