@@ -1,70 +1,54 @@
 <?php
 @include '../config.php';
 
-// Get student mobile number and selected documents
-$studentMobileNo = isset($_POST['StudentMobileNo']) ? $_POST['StudentMobileNo'] : '';
-$documentTypes = isset($_POST['documentType']) ? $_POST['documentType'] : [];
+require_once '../vendor/autoload.php';
 
-// Validate the input
-if (empty($studentMobileNo) || empty($documentTypes)) {
-    die('No student mobile number or documents selected.');
-}
+use setasign\Fpdi\Fpdi;
 
-// Allowed document types (excluding ProfilePhoto)
-$allowedDocuments = [
-    'CommunityDocument',
-    'AadhaarDocument',
-    'FirstGraduateDocument',
-    'MigrationDocument',
-    'IncomeDocument',
-    'CounsellingDocument',
-    'DiplomaDocument',
-    'UGDocument',
-    'TotalMark10Document',
-    'TotalMark12Document',
-    'TransferCertificate'
-];
-
-foreach ($documentTypes as $document) {
-    if (!in_array($document, $allowedDocuments)) {
-        die('Invalid document type selected.');
+// Define the StreamReader class
+class StreamReader
+{
+    public static function create($data)
+    {
+        return fopen('data://text/plain;base64,' . base64_encode($data), 'r');
     }
 }
 
-// Prepare a zip file to download
-$zip = new ZipArchive();
-$zipFilename = 'documents_' . $studentMobileNo . '.zip';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $studentMobileNo = isset($_POST['StudentMobileNo']) ? $_POST['StudentMobileNo'] : '';
+    $documentTypes = isset($_POST['documentType']) ? $_POST['documentType'] : [];
 
-if ($zip->open($zipFilename, ZipArchive::CREATE) !== TRUE) {
-    die('Unable to create zip file.');
-}
+    if (!empty($studentMobileNo) && !empty($documentTypes)) {
+        // Create a new FPDI instance
+        $pdf = new Fpdi();
 
-foreach ($documentTypes as $document) {
-    // Fetch the document data
-    $sql = "SELECT $document FROM umis WHERE StudentMobileNo = '" . $conn->real_escape_string($studentMobileNo) . "'";
-    $result = $conn->query($sql);
+        foreach ($documentTypes as $documentType) {
+            $sql = "SELECT $documentType FROM umis WHERE StudentMobileNo = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('s', $studentMobileNo);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $stmt->close();
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $documentData = $row[$document];
-
-        if ($documentData) {
-            // Add the document to the zip file
-            $zip->addFromString($document . '.pdf', $documentData); // Adjust extension if needed
+            if (!empty($row[$documentType])) {
+                // Load the PDF from the BLOB data
+                $pdfData = $row[$documentType];
+                $pdf->addPage();
+                $pdf->setSourceFile(StreamReader::create($pdfData));
+                $tplId = $pdf->importPage(1);
+                $pdf->useTemplate($tplId);
+            }
         }
+
+        // Output the merged PDF
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="merged_document.pdf"');
+        echo $pdf->Output('S'); // Output as string
+        exit;
+    } else {
+        echo "No student mobile number or document types provided.";
     }
+} else {
+    echo "Invalid request method.";
 }
-
-$zip->close();
-
-// Serve the zip file for download
-header('Content-Type: application/zip');
-header('Content-Disposition: attachment; filename="' . basename($zipFilename) . '"');
-header('Content-Length: ' . filesize($zipFilename));
-
-readfile($zipFilename);
-
-// Clean up the zip file after download
-unlink($zipFilename);
-exit();
-?>
